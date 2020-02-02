@@ -1,0 +1,26 @@
+{
+  "coc.preferences.colorSupport": false,
+  "coc.preferences.formatOnSaveFiletypes": ["elixir", "elm", "json"],
+  "codeLens.enable": true,
+  "diagnostic.messageTarget": "float",
+  "diagnostic.enableMessage": "always",
+  "eslint.autoFixOnSave": true,
+  "suggest.minTriggerInputLength": 1,
+  "suggest.noselect": false,
+  "tsserver.enableJavascript": true,
+  "tsserver.formatOnType": false,
+  "languageserver": {
+    "elixir": {
+      "command": "~/projects/elixir/elixir-ls/release/language_server.sh",
+      "filetypes": ["elixir", "eelixir"]
+    },
+    "elm": {
+      "command": "elm-language-server",
+      "filetypes": ["elm"],
+      "rootPatterns": ["elm.json"],
+      "initializationOptions": {
+        "elmAnalyseTrigger": "change"
+      }
+    }
+  }
+}
