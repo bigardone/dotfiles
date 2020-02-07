@@ -13,6 +13,7 @@ Plug 'gorkunov/smartpairs.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch.vim'
+Plug 'jeetsukumaran/vim-buffergator'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
@@ -20,6 +21,7 @@ Plug 'mtth/scratch.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'thaerkh/vim-workspace'
 Plug 'tpope/vim-surround'
+Plug 't9md/vim-choosewin'
 
 " Theme / Interface
 Plug 'arcticicestudio/nord-vim'
@@ -35,7 +37,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'elixir-editors/vim-elixir'
 
 " Elm support
-Plug 'elmcast/elm-vim'
+Plug 'andys8/vim-elm-syntax'
 
 " Generic programming support
 Plug 'Townk/vim-autoclose'
@@ -43,8 +45,8 @@ Plug 'bronson/vim-trailing-whitespace'
 Plug 'janko-m/vim-test'
 Plug 'liuchengxu/vista.vim'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'sheerun/vim-polyglot'
+Plug 'tomtom/tcomment_vim'
 
 "Go support
 Plug 'fatih/vim-hclfmt'
@@ -260,17 +262,17 @@ let g:closetag_filenames = '*.html,*.xhtml,*.eex'
 """"""""""""""""""""""""""
 " Vista configuration
 """"""""""""""""""""""""""
-let g:vista_default_executive = 'coc'
-let g:vista_close_on_jump = 1
-let g:vista_blink  = [0, 0]
-let g:vista_sidebar_width = 60
-let g:vista_finder_alternative_executives = ['coc']
 let g:vista#renderer#enable_icon = 0
+let g:vista_blink  = [0, 0]
+let g:vista_close_on_jump = 1
+let g:vista_default_executive = 'coc'
 let g:vista_echo_cursor = 0
+let g:vista_echo_cursor_strategy = 'floating_win'
+let g:vista_finder_alternative_executives = ['coc']
+let g:vista_sidebar_width = 60
 let g:vista_executive_for = {
   \ 'markdown': 'toc',
   \ }
-map <C-m> :Vista<CR>
 
 """"""""""""""""""""""""""
 " Coc configuration
@@ -286,8 +288,6 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
 inoremap <expr> <TAB> pumvisible() ? "\<C-y>" : "\<TAB>"
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 autocmd CursorHold * silent call CocActionAsync('highlight')
-nmap <silent> <TAB> <Plug>(coc-range-select)
-xmap <silent> <TAB> <Plug>(coc-range-select)
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -333,6 +333,7 @@ nmap <silent> <leader>tg :TestVisit<CR>
 """"""""""""""""""""""""""
 " Clap configuration
 """"""""""""""""""""""""""
+let g:clap_layout = { 'relative': 'editor', 'width': '75%' }
 nmap <Leader>b :Clap buffers<CR>
 nmap <Leader>F :Clap files<CR>
 nmap <Leader>f :Clap git_files<CR>
@@ -341,6 +342,7 @@ nmap <Leader>y :Clap yanks<CR>
 nmap <Leader>h :Clap history<CR>
 nmap <Leader>m :Clap git_diff_files<CR>
 nmap <Leader>a :Clap grep<CR>
+nmap <C-m> :Clap tags<CR>
 
 
 """"""""""""""""""""""""""
@@ -366,6 +368,22 @@ let g:elm_detailed_complete = 1
 let g:elm_make_show_warnings = 1
 let g:elm_jump_to_error = 0
 
+""""""""""""""""""""""""""
+" Choosewin configuration
+""""""""""""""""""""""""""
+let g:choosewin_overlay_enable = 1
+nmap  <Leader>w  <Plug>(choosewin)
+
+""""""""""""""""""""""""""
+" Buffergator configuration
+""""""""""""""""""""""""""
+let g:buffergator_sort_regime="basename"
+let g:buffergator_suppress_keymaps=1
+let g:buffergator_mru_cycle_local_to_window=1
+nmap <silent> <leader><LEFT> :BuffergatorMruCyclePrev leftabove vert sbuffer<CR>
+nmap <silent> <leader><UP> :BuffergatorMruCyclePrev leftabove sbuffer<CR>
+nmap <silent> <leader><RIGHT> :BuffergatorMruCyclePrev rightbelow vert sbuffer<CR>
+nmap <silent> <leader><DOWN> :BuffergatorMruCyclePrev rightbelow sbuffer<CR>
 
 """""""""""""""""""""""""""""""""""""
 " General mappings
@@ -373,9 +391,6 @@ let g:elm_jump_to_error = 0
 
 " Run commands that require an interactive shell
 nnoremap <Leader>r :RunInInteractiveShell<space>
-
-" Switch between the last two files
-nnoremap <Leader><Leader> <c-^>
 
 " Quicker window movement
 nnoremap <C-j> <C-w>j
@@ -390,8 +405,8 @@ autocmd BufWritePre * :%s/\s\+$//e
 " Saving and closing buffers
 nnoremap <Leader>s :w<CR>
 nnoremap <Leader>bc :CloseHiddenBuffers<CR>
-nnoremap <Leader>bd :bdelete<CR>
 nnoremap <Leader>bca :CloseHiddenBuffers<CR>:bdelete<CR>
+nnoremap <Leader>bd :bd<CR>
 
 " Disable arrow movement, resize splits instead.
 if get(g:, 'elite_mode')
@@ -431,15 +446,6 @@ noremap <Leader>tt :tabnew<CR>
 " Easily close a tab.
 noremap <Leader>tc :tabclose<CR>
 
-" Easily move a tab.
-noremap <Leader>tm :tabmove<CR>
-
-" Easily go to next tab.
-noremap <Leader>tn :tabnext<CR>
-
-" Easily go to previous tab.
-noremap <Leader>tp :tabprevious<CR>
-
 " Quickly source .vimrc
 nnoremap <leader>r :source $MYVIMRC<CR>
 
@@ -458,5 +464,6 @@ nnoremap <leader>qa :only<CR>
 " Buffer navigation
 nnoremap gn :bnext<CR>
 nnoremap gb :bprevious<CR>
+nnoremap <TAB><TAB> <c-^>
 
 
