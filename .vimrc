@@ -17,11 +17,13 @@ Plug 'jeetsukumaran/vim-buffergator'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
-Plug 'mtth/scratch.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'thaerkh/vim-workspace'
 Plug 'tpope/vim-surround'
 Plug 't9md/vim-choosewin'
+Plug 'moll/vim-bbye/'
+Plug 'dyng/ctrlsf.vim'
+
 
 " Theme / Interface
 Plug 'arcticicestudio/nord-vim'
@@ -71,6 +73,7 @@ set nowrap
 set encoding=utf8
 set backspace=indent,eol,start
 filetype plugin indent on
+set inccommand=nosplit
 
 " Set swap and undo directories
 set directory=$HOME/.vim/swp
@@ -192,6 +195,9 @@ let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
 let g:NERDTreeWinPos = "right"
 let g:NERDTreeQuitOnOpen = 1
 let g:NERDTreeMinimalMenu = 1
+let g:NERDTreeHighlightCursorline = 1
+let g:NERDTreeHighlightFolders = 1
+let g:NERDTreeAutoDeleteBuffer = 1
 let NERDTreeIgnore=['elm-stuff', 'node_modules', '_build', '_deps']
 let NERDTreeHijackNetrw=1
 let g:NERDTreeWinSize=60
@@ -203,7 +209,7 @@ nnoremap <Leader>n :NERDTreeFind<Enter>
 """"""""""""""""""""""""""
 let g:fugitive_gitlab_domains = ['https://gitlab.otters.xyz/']
 nnoremap <Leader>ga :Git add %:p<CR><CR>
-nnoremap <Leader>gs :Git<CR>
+nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>gc :Gcommit -v -q<CR>
 nnoremap <Leader>gt :Gcommit -v -q %:p<CR>
 noremap <Leader>gd :Gdiff<CR>
@@ -311,12 +317,6 @@ endfunction
 let g:coc_snippet_next = '<tab>'
 
 """"""""""""""""""""""""""
-" Vim test
-""""""""""""""""""""""""""
-let test#filename_modifier = ":p"
-let g:test#preserve_screen = 1
-
-""""""""""""""""""""""""""
 " hclfmt confinguration
 """"""""""""""""""""""""""
 let g:hcl_fmt_autosave = 1
@@ -324,6 +324,9 @@ let g:hcl_fmt_autosave = 1
 """"""""""""""""""""""""""
 " vim-test configurtation
 """"""""""""""""""""""""""
+let test#filename_modifier = ":p"
+let test#neovim#term_position = "vert"
+let g:test#preserve_screen = 1
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>ta :TestSuite<CR>
@@ -334,6 +337,7 @@ nmap <silent> <leader>tg :TestVisit<CR>
 " Clap configuration
 """"""""""""""""""""""""""
 let g:clap_layout = { 'relative': 'editor', 'width': '75%' }
+let g:clap_insert_mode_only = 1
 nmap <Leader>b :Clap buffers<CR>
 nmap <Leader>F :Clap files<CR>
 nmap <Leader>f :Clap git_files<CR>
@@ -385,6 +389,13 @@ nmap <silent> <leader><UP> :BuffergatorMruCyclePrev leftabove sbuffer<CR>
 nmap <silent> <leader><RIGHT> :BuffergatorMruCyclePrev rightbelow vert sbuffer<CR>
 nmap <silent> <leader><DOWN> :BuffergatorMruCyclePrev rightbelow sbuffer<CR>
 
+""""""""""""""""""""""""""
+" CtrlFS configuration
+""""""""""""""""""""""""""
+let g:ctrlsf_ignore_dir = ['elm-stuff', 'node_modules', 'deps', '_build']
+nmap <Leader>fs <Plug>CtrlSFPrompt
+vmap <Leader>fs <Plug>CtrlSFVwordExec
+
 """""""""""""""""""""""""""""""""""""
 " General mappings
 """""""""""""""""""""""""""""""""""""
@@ -406,7 +417,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 nnoremap <Leader>s :w<CR>
 nnoremap <Leader>bc :CloseHiddenBuffers<CR>
 nnoremap <Leader>bca :CloseHiddenBuffers<CR>:bdelete<CR>
-nnoremap <Leader>bd :bd<CR>
+nnoremap <Leader>bd  :Bwipeout<CR>
 
 " Disable arrow movement, resize splits instead.
 if get(g:, 'elite_mode')
@@ -466,4 +477,10 @@ nnoremap gn :bnext<CR>
 nnoremap gb :bprevious<CR>
 nnoremap <TAB><TAB> <c-^>
 
+" Sort lines, selected or over motion.
+xnoremap <silent> gs :sort i<CR>
+nnoremap <silent> gs :set opfunc=SortLines<CR>g@
+fun! SortLines(type) abort
+    '[,']sort i
+endfun
 

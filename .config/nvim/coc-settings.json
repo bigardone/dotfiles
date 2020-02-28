@@ -15,9 +15,11 @@
   "languageserver": {
     "elixir": {
       "command": "~/projects/elixir/elixir-ls/release/language_server.sh",
-      "filetypes": ["elixir", "eelixir"]
+      "filetypes": ["elixir", "eelixir"],
+      "trace.server": "verbose"
     },
     "elm": {
+      "trace.server": "verbose",
       "command": "elm-language-server",
       "filetypes": ["elm"],
       "rootPatterns": ["elm.json"],
