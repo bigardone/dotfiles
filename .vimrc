@@ -23,11 +23,12 @@ Plug 'tpope/vim-surround'
 Plug 't9md/vim-choosewin'
 Plug 'moll/vim-bbye/'
 Plug 'dyng/ctrlsf.vim'
+Plug 'voldikss/vim-floaterm'
 
 
 " Theme / Interface
 Plug 'arcticicestudio/nord-vim'
-Plug 'vim-airline/vim-airline'
+Plug 'itchyny/lightline.vim'
 
 " Git support
 Plug 'airblade/vim-gitgutter'
@@ -176,13 +177,23 @@ if v:version >= 700
   au BufEnter * if(exists('b:winview')) | call winrestview(b:winview) | endif
 endif
 
+" Opacity
+set pumblend=9
+set winblend=9
+
 """"""""""""""""""""""""""
-" Vim-Airline configuration
+" Lightline configuration
 """"""""""""""""""""""""""
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
-let g:airline_exclude_preview = 1
-let g:airline_theme = 'nord'
+let g:lightline = {
+      \ 'colorscheme': 'nord',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
 
 """"""""""""""""""""""""""
 " Vim-Supertab configuration
@@ -395,6 +406,16 @@ nmap <silent> <leader><DOWN> :BuffergatorMruCyclePrev rightbelow sbuffer<CR>
 let g:ctrlsf_ignore_dir = ['elm-stuff', 'node_modules', 'deps', '_build']
 nmap <Leader>fs <Plug>CtrlSFPrompt
 vmap <Leader>fs <Plug>CtrlSFVwordExec
+
+""""""""""""""""""""""""""
+" Floaterm configuration
+""""""""""""""""""""""""""
+let g:floaterm_winblend = 9
+let g:floaterm_keymap_toggle = '<Leader>fn'
+let g:floaterm_position = 'center'
+let g:floaterm_width = 0.8
+let g:floaterm_height = 0.8
+let g:floaterm_borderchars = ['─', '│', '─', '│', '┌', '┐', '┘', '└']
 
 """""""""""""""""""""""""""""""""""""
 " General mappings
