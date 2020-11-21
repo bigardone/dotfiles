@@ -1,3 +1,8 @@
+""""""""""""""""""""""""""
+" Polyglot configuration
+""""""""""""""""""""""""""
+let g:polyglot_disabled = ['elixir', 'elm']
+
 set nocompatible
 
 """"""""""""""""""""""""""
@@ -9,50 +14,53 @@ call plug#begin('~/.nvim/plugged')
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'ervandew/supertab'
-Plug 'gorkunov/smartpairs.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch.vim'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary' }
-Plug 'scrooloose/nerdtree'
 Plug 'thaerkh/vim-workspace'
 Plug 'tpope/vim-surround'
-Plug 't9md/vim-choosewin'
 Plug 'moll/vim-bbye/'
 Plug 'dyng/ctrlsf.vim'
 Plug 'voldikss/vim-floaterm'
 
-
 " Theme / Interface
 Plug 'arcticicestudio/nord-vim'
 Plug 'itchyny/lightline.vim'
+Plug 'mengelbrecht/lightline-bufferline'
+
+" Generic programming support
+Plug 'liuchengxu/vista.vim'
+Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+Plug 'Townk/vim-autoclose'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'janko-m/vim-test'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'sheerun/vim-polyglot'
+Plug 'tomtom/tcomment_vim'
+Plug 'kana/vim-textobj-user'
+Plug 'sbdchd/neoformat'
 
 " Git support
 Plug 'airblade/vim-gitgutter'
 Plug 'shumphrey/fugitive-gitlab.vim'
 Plug 'tpope/vim-fugitive'
-
+Plug 'tpope/vim-rhubarb'
 
 " Elixir support
 Plug 'elixir-editors/vim-elixir'
+Plug 'andyl/vim-textobj-elixir'
 
 " Elm support
 Plug 'andys8/vim-elm-syntax'
 
-" Generic programming support
-Plug 'Townk/vim-autoclose'
-Plug 'bronson/vim-trailing-whitespace'
-Plug 'janko-m/vim-test'
-Plug 'liuchengxu/vista.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'sheerun/vim-polyglot'
-Plug 'tomtom/tcomment_vim'
-
-"Go support
+" Go support
 Plug 'fatih/vim-hclfmt'
+
+"Gleam support
+Plug 'gleam-lang/gleam.vim'
 
 " Markdown and writing
 Plug 'junegunn/goyo.vim'
@@ -64,14 +72,12 @@ Plug 'vimwiki/vimwiki'
 
 call plug#end()
 
-
-
 """""""""""""""""""""""""""""""""""""
 " Configuration Section
 """""""""""""""""""""""""""""""""""""
 syntax on
 set nowrap
-set encoding=utf8
+set encoding=UTF-8
 set backspace=indent,eol,start
 filetype plugin indent on
 set inccommand=nosplit
@@ -149,6 +155,10 @@ if (has("termguicolors"))
   set termguicolors
 endif
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+set fillchars+=vert:\|
+let g:nord_cursor_line_number_background = 1
+let g:nord_uniform_diff_background = 1
+
 
 " Timeout
 set timeoutlen=300 ttimeoutlen=0
@@ -178,42 +188,38 @@ if v:version >= 700
 endif
 
 " Opacity
-set pumblend=9
-set winblend=9
+set pumblend=5
+set winblend=5
 
 """"""""""""""""""""""""""
 " Lightline configuration
 """"""""""""""""""""""""""
+set showtabline=2
 let g:lightline = {
       \ 'colorscheme': 'nord',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified', 'method' ] ]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'FugitiveHead'
+      \   'gitbranch': 'FugitiveHead',
+      \   'method': 'NearestMethodOrFunction'
       \ },
+      \ 'tabline': {
+      \   'left': [['buffers']], 'right': [['']],
+      \ },
+      \ 'component_expand': {
+      \   'buffers': 'lightline#bufferline#buffers'
+      \ },
+      \ 'component_type': {
+      \   'buffers': 'tabsel'
+      \ }
       \ }
 
 """"""""""""""""""""""""""
 " Vim-Supertab configuration
 """"""""""""""""""""""""""
 let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
-
-""""""""""""""""""""""""""
-" NerdTree configuration
-""""""""""""""""""""""""""
-let g:NERDTreeWinPos = "right"
-let g:NERDTreeQuitOnOpen = 1
-let g:NERDTreeMinimalMenu = 1
-let g:NERDTreeHighlightCursorline = 1
-let g:NERDTreeHighlightFolders = 1
-let g:NERDTreeAutoDeleteBuffer = 1
-let NERDTreeIgnore=['elm-stuff', 'node_modules', '_build', '_deps']
-let NERDTreeHijackNetrw=1
-let g:NERDTreeWinSize=60
-map <C-n> :NERDTreeToggle<CR>
-nnoremap <Leader>n :NERDTreeFind<Enter>
 
 """"""""""""""""""""""""""
 " Fugitive configuration
@@ -251,7 +257,7 @@ noremap <silent><expr> <Space>/ incsearch#go(<SID>config_easyfuzzymotion())
 """"""""""""""""""""""""""
 let g:workspace_autosave = 0
 let g:workspace_autosave_always = 0
-let g:workspace_autosave_ignore = ['gitcommit', 'qf', 'nerdtree']
+let g:workspace_autosave_ignore = ['gitcommit', 'qf', 'floaterm']
 let g:workspace_autosave_untrailspaces = 0
 let g:workspace_session_name = '.session.vim'
 
@@ -287,9 +293,11 @@ let g:vista_echo_cursor = 0
 let g:vista_echo_cursor_strategy = 'floating_win'
 let g:vista_finder_alternative_executives = ['coc']
 let g:vista_sidebar_width = 60
+let g:vista_cursor_delay = 0
 let g:vista_executive_for = {
   \ 'markdown': 'toc',
   \ }
+" map <C-m> :Vista show<CR>
 
 """"""""""""""""""""""""""
 " Coc configuration
@@ -299,6 +307,7 @@ let g:coc_snippet_prev = '<S-TAB>'
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
+nmap <C-a> <Plug>(coc-codeaction)
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
@@ -333,11 +342,12 @@ let g:coc_snippet_next = '<tab>'
 let g:hcl_fmt_autosave = 1
 
 """"""""""""""""""""""""""
-" vim-test configurtation
+" vim-test configuration
 """"""""""""""""""""""""""
 let test#filename_modifier = ":p"
 let test#neovim#term_position = "vert"
 let g:test#preserve_screen = 1
+let test#strategy = "floaterm"
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
 nmap <silent> <leader>ta :TestSuite<CR>
@@ -347,8 +357,12 @@ nmap <silent> <leader>tg :TestVisit<CR>
 """"""""""""""""""""""""""
 " Clap configuration
 """"""""""""""""""""""""""
-let g:clap_layout = { 'relative': 'editor', 'width': '75%' }
+let g:clap_layout = { 'relative': 'editor', 'width': '72%' }
 let g:clap_insert_mode_only = 1
+let g:clap_provider_grep_executable = 'rg'
+let g:clap_provider_grep_opts = '--glob !.git/ --hidden --no-heading --smart-case --vimgrep'
+let g:clap_search_box_border_symbols = {'nil': ['', ''], 'curve': ['', ''], 'arrow': ['', '']}
+let g:clap_enable_background_shadow = 0
 nmap <Leader>b :Clap buffers<CR>
 nmap <Leader>F :Clap files<CR>
 nmap <Leader>f :Clap git_files<CR>
@@ -356,7 +370,8 @@ nmap <Leader>' :Clap marks<CR>
 nmap <Leader>y :Clap yanks<CR>
 nmap <Leader>h :Clap history<CR>
 nmap <Leader>m :Clap git_diff_files<CR>
-nmap <Leader>a :Clap grep<CR>
+nmap <Leader>a :Clap grep2<CR>
+nmap <Leader>l :Clap loclist<CR>
 nmap <C-m> :Clap tags<CR>
 
 
@@ -368,10 +383,6 @@ let g:splitjoin_join_mapping = ''
 nmap <Leader>J :SplitjoinJoin<cr>
 nmap <Leader>S :SplitjoinSplit<cr>
 
-""""""""""""""""""""""""""
-" Polyglot configuration
-""""""""""""""""""""""""""
-let g:polyglot_disabled = ['elixir', 'elm']
 
 """"""""""""""""""""""""""
 " Elm configuration
@@ -382,12 +393,6 @@ let g:elm_setup_keybindings = 0
 let g:elm_detailed_complete = 1
 let g:elm_make_show_warnings = 1
 let g:elm_jump_to_error = 0
-
-""""""""""""""""""""""""""
-" Choosewin configuration
-""""""""""""""""""""""""""
-let g:choosewin_overlay_enable = 1
-nmap  <Leader>w  <Plug>(choosewin)
 
 """"""""""""""""""""""""""
 " Buffergator configuration
@@ -416,6 +421,19 @@ let g:floaterm_position = 'center'
 let g:floaterm_width = 0.8
 let g:floaterm_height = 0.8
 let g:floaterm_borderchars = ['─', '│', '─', '│', '┌', '┐', '┘', '└']
+hi FloatermBorderNF guibg='#4c556a' guifg='#ABB9CF'
+map <C-n> :FloatermNew ranger<CR>
+nnoremap <Leader>n :FloatermNew ranger<Enter>
+
+""""""""""""""""""""""""""
+" Fzf configuration
+""""""""""""""""""""""""""
+let g:fzf_layout = { 'window': { 'width': 0.6, 'height': 0.6 } }
+
+""""""""""""""""""""""""""
+" Workspaces configuration
+""""""""""""""""""""""""""
+let g:workspace_autosave = 0
 
 """""""""""""""""""""""""""""""""""""
 " General mappings
@@ -505,3 +523,5 @@ fun! SortLines(type) abort
     '[,']sort i
 endfun
 
+" Fix coc phantom floating windows
+inoremap <C-c> <Esc><Esc>

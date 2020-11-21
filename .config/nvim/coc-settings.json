@@ -1,30 +1,48 @@
 {
   "coc.preferences.colorSupport": false,
-  "coc.preferences.formatOnSaveFiletypes": ["elixir", "elm", "json"],
+  "coc.preferences.extensionUpdateCheck": "weekly",
+  "coc.preferences.formatOnSaveFiletypes": [
+    "elixir",
+    "elm",
+    "json",
+    "js"
+  ],
+  "coc.preferences.useQuickfixForLocations": true,
   "codeLens.enable": true,
   "diagnostic.messageTarget": "float",
   "diagnostic.enableMessage": "always",
+  "diagnostic.maxWindowHeight": 20,
+  "diagnostic.checkCurrentLine": true,
+  "diagnostic.refreshAfterSave": false,
   "eslint.autoFixOnSave": true,
+  "emmet.includeLanguages": {
+    "*.erb": "html",
+    "ruby": "html"
+  },
+  "javascript.format.enabled": true,
   "suggest.enablePreview": true,
-  "suggest.languageSourcePriority": 101,
+  "suggest.languageSourcePriority": 100,
   "suggest.localityBonus": false,
   "suggest.minTriggerInputLength": 1,
   "suggest.noselect": false,
+  "suggest.removeDuplicateItems": true,
   "tsserver.enableJavascript": true,
   "tsserver.formatOnType": false,
+  "yank.enableCompletion": false,
+  "yank.highlight.enable": false,
+  "yank.priority": 40,
   "languageserver": {
-    "elixir": {
-      "command": "~/projects/elixir/elixir-ls/release/language_server.sh",
-      "filetypes": ["elixir", "eelixir"],
-      "trace.server": "verbose"
-    },
     "elm": {
       "trace.server": "verbose",
       "command": "elm-language-server",
-      "filetypes": ["elm"],
-      "rootPatterns": ["elm.json"],
+      "filetypes": [
+        "elm"
+      ],
+      "rootPatterns": [
+        "elm.json"
+      ],
       "initializationOptions": {
-        "elmAnalyseTrigger": "change"
+        "elmAnalyseTrigger": "save"
       }
     }
   }
