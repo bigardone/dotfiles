@@ -297,7 +297,6 @@ let g:vista_cursor_delay = 0
 let g:vista_executive_for = {
   \ 'markdown': 'toc',
   \ }
-" map <C-m> :Vista show<CR>
 
 """"""""""""""""""""""""""
 " Coc configuration
@@ -307,7 +306,8 @@ let g:coc_snippet_prev = '<S-TAB>'
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gr <Plug>(coc-references)
 nmap <leader>rn <Plug>(coc-rename)
-nmap <C-a> <Plug>(coc-codeaction)
+nmap <silent> ga <Plug>(coc-codeaction-line)
+nmap <silent> gA <Plug>(coc-codeaction)
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <silent><expr> <c-space> coc#refresh()
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<CR>"
@@ -372,7 +372,7 @@ nmap <Leader>h :Clap history<CR>
 nmap <Leader>m :Clap git_diff_files<CR>
 nmap <Leader>a :Clap grep2<CR>
 nmap <Leader>l :Clap loclist<CR>
-nmap <C-m> :Clap tags<CR>
+nmap <C-t> :Clap tags<CR>
 
 
 """"""""""""""""""""""""""

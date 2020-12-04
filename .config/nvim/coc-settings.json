@@ -28,22 +28,18 @@
   "suggest.removeDuplicateItems": true,
   "tsserver.enableJavascript": true,
   "tsserver.formatOnType": false,
+  "yank.priority": 40,
   "yank.enableCompletion": false,
   "yank.highlight.enable": false,
-  "yank.priority": 40,
   "languageserver": {
     "elm": {
-      "trace.server": "verbose",
       "command": "elm-language-server",
       "filetypes": [
         "elm"
       ],
       "rootPatterns": [
         "elm.json"
-      ],
-      "initializationOptions": {
-        "elmAnalyseTrigger": "save"
-      }
+      ]
     }
   }
 }
