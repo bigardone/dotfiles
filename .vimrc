@@ -12,8 +12,8 @@ call plug#begin('~/.nvim/plugged')
 
 " Utility
 Plug 'AndrewRadev/splitjoin.vim'
-Plug 'easymotion/vim-easymotion'
 Plug 'ervandew/supertab'
+Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch.vim'
@@ -33,7 +33,7 @@ Plug 'mengelbrecht/lightline-bufferline'
 
 " Generic programming support
 Plug 'liuchengxu/vista.vim'
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+Plug 'liuchengxu/vim-clap', { 'do': { -> clap#installer#force_download() } }
 Plug 'Townk/vim-autoclose'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'janko-m/vim-test'

@@ -5,7 +5,8 @@
     "elixir",
     "elm",
     "json",
-    "js"
+    "js",
+    "javascript"
   ],
   "coc.preferences.useQuickfixForLocations": true,
   "codeLens.enable": true,
@@ -13,12 +14,11 @@
   "diagnostic.enableMessage": "always",
   "diagnostic.maxWindowHeight": 20,
   "diagnostic.checkCurrentLine": true,
-  "diagnostic.refreshAfterSave": false,
-  "eslint.autoFixOnSave": true,
   "emmet.includeLanguages": {
     "*.erb": "html",
     "ruby": "html"
   },
+  "eslint.autoFixOnSave": true,
   "javascript.format.enabled": true,
   "suggest.enablePreview": true,
   "suggest.languageSourcePriority": 100,
