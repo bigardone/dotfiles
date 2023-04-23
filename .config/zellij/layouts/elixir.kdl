@@ -4,7 +4,7 @@ layout {
       plugin location="zellij:tab-bar"
     }
 
-    pane start_suspended=true command="iex" {
+    pane start_suspended=true borderless=true command="iex" {
       args "-S" "mix" "phx.server"
     }
 
@@ -25,6 +25,10 @@ layout {
 
       pane start_suspended=true command="mix" {
         args "credo"
+      }
+
+      pane start_suspended=true command="mix" {
+        args "dialyzer"
       }
     }
 
