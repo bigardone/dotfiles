@@ -63,15 +63,15 @@ require("which-key").register({
   f = {
     name = "Find",
     b = { ":Telescope buffers<CR>", "Buffers" },
-    d = { ":noh<CR>", "Delete search" },
+    d = { ":Telescope coc diagnostics<CR>", "Diagnostics" },
     f = { ":Telescope find_files hidden=true<CR>", "Files" },
     h = { ":Telescope oldfiles<CR>", "Last files" },
     m = { ":Telescope git_status<CR>", "Modified files" },
-    n = { ":Telescope noice<CR>", "Noice" },
     r = { ":Telescope registers<CR>", "Registers" },
     t = { ":Telescope live_grep<CR>", "Files with text" },
     T = { ":Telescope telescope-tabs list_tabs<CR>", "Tabs" },
   },
+  F = { ":NvimTreeFindFileToggle<CR>", "File tree" },
   g = {
     name = "Git",
     b = { ":Git blame<CR>", "Blame" },
