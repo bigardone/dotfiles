@@ -4,7 +4,9 @@ layout {
       plugin location="zellij:tab-bar"
     }
 
-    pane start_suspended=true borderless=true command="iex" {
+    pane borderless=true edit="nvim" size="80%"
+
+    pane start_suspended=true command="iex" {
       args "-S" "mix" "phx.server"
     }
 
