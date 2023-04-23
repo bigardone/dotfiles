@@ -1,0 +1,111 @@
+{
+  "coc.preferences.extensionUpdateCheck": "weekly",
+  "coc.preferences.formatOnSaveFiletypes": [
+    "elixir",
+    "eelixir",
+    "heex",
+    "elm",
+    "json",
+    "js",
+    "javascript",
+    "ex",
+    "heex",
+    "lua",
+    "go",
+    "sql"
+  ],
+  "coc.preferences.formatOnType": [
+    "sql"
+  ],
+  "workspace.rootPatterns": [
+    ".git",
+    ".hg",
+    ".projections.json",
+    "tailwind.config.js",
+    "mix.exs"
+  ],
+  "coc.preferences.useQuickfixForLocations": true,
+  "codeLens.enable": true,
+  "css.validate": false,
+  "diagnostic.messageTarget": "float",
+  "diagnostic.enableMessage": "always",
+  "diagnostic.checkCurrentLine": true,
+  "emmet.includeLanguages": {
+    "eelixir": "html",
+    "heex": "html"
+  },
+  "eslint.autoFixOnSave": true,
+  "suggest.languageSourcePriority": 100,
+  "suggest.localityBonus": false,
+  "suggest.minTriggerInputLength": 1,
+  "suggest.noselect": false,
+  "suggest.removeDuplicateItems": true,
+  "snippets.ultisnips.directories": [
+    "UltiSnips",
+    "/Users/ricardogarciavega/.nvim/plugged/vim-snippets/UltiSnips"
+  ],
+  "sql.lintOnSave": true,
+  "tailwindCSS.headwind.runOnSave": true,
+  "tailwindCSS.headwind.prependCustomClasses": true,
+  "tailwindCSS.includeLanguages": {
+    "eelixir": "html",
+    "elixir": "html",
+    "heex": "html"
+  },
+  "languageserver": {
+    "credoLS": {
+      "command": "~/projects/elixir/credo-ls/bin/credo-language-server",
+      "args": [
+        "--stdio"
+      ],
+      "filetypes": [
+        "elixir",
+        "eelixir",
+        "heex"
+      ],
+      "rootPatterns": [
+        "mix.exs"
+      ]
+    },
+    "elixirLS": {
+      "command": "~/projects/elixir/elixir-ls/release/language_server.sh",
+      "filetypes": [
+        "elixir",
+        "eelixir",
+        "heex"
+      ],
+      "rootPatterns": [
+        "mix.exs"
+      ]
+    },
+    "elmLS": {
+      "command": "elm-language-server",
+      "settings": {
+        "onlyUpdateDiagnosticsOnSave": true
+      },
+      "filetypes": [
+        "elm"
+      ],
+      "rootPatterns": [
+        "elm.json"
+      ]
+    },
+    "golangLS": {
+      "command": "gopls",
+      "rootPatterns": [
+        "go.mod",
+        ".vim/",
+        ".git/",
+        ".hg/"
+      ],
+      "filetypes": [
+        "go"
+      ],
+      "initializationOptions": {
+        "usePlaceholders": true
+      }
+    }
+  },
+  "yaml.format.enable": true,
+  "snippets.ultisnips.pythonPrompt": false
+}
