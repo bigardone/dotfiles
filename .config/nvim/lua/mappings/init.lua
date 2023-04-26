@@ -32,10 +32,12 @@ vim.api.nvim_set_keymap("n", "<TAB><TAB>", "<c-^>", {})
 -- Hop
 vim.api.nvim_set_keymap("n", "<C-j>", "<cmd>HopWord<CR>", {})
 vim.api.nvim_set_keymap("v", "<C-j>", "<cmd>HopWord<CR>", {})
-vim.api.nvim_set_keymap("n", "<C-/>", "<cmd>HopPattern<CR>", {})
-vim.api.nvim_set_keymap("v", "<C-/>", "<cmd>HopPattern<CR>", {})
+vim.api.nvim_set_keymap("n", "<C-p>", "<cmd>HopPattern<CR>", {})
+vim.api.nvim_set_keymap("v", "<C-p>", "<cmd>HopPattern<CR>", {})
 vim.api.nvim_set_keymap("n", "<C-l>", "<cmd>HopLine<CR>", {})
 vim.api.nvim_set_keymap("v", "<C-l>", "<cmd>HopLine<CR>", {})
+vim.api.nvim_set_keymap("n", "<C-k>", "<cmd>HopAnywhere<CR>", {})
+vim.api.nvim_set_keymap("v", "<C-k>", "<cmd>HopAnywhere<CR>", {})
 
 -- Toggle NvimTree
 vim.api.nvim_set_keymap("n", "<C-n>", ':NvimTreeFindFileToggle<CR>', {})

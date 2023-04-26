@@ -49,50 +49,41 @@ require("which-key").register({
       f = { ":!mix format<CR>", "Format code" }
     },
     f = { ":CocCommand eslint.executeAutofix<CR>", "Autofix" },
-    g = {
-      name = "Go",
-      r = { ":FloatermNew go run %:p:h<CR>", "Run main" }
-    },
-    i = {
-      name = "CI",
-      b = { ":! gh pr view --web<CR>", "Browse MR" },
-      v = { ":FloatermNew gh workflow view<CR>", "View workflow" }
-    },
     r = { "<Plug>(coc-rename)", "Rename" },
   },
   f = {
     name = "Find",
     b = { ":Telescope buffers<CR>", "Buffers" },
     d = { ":Telescope coc diagnostics<CR>", "Diagnostics" },
-    f = { ":Telescope find_files hidden=true<CR>", "Files" },
-    h = { ":Telescope oldfiles<CR>", "Last files" },
+    f = { ":Telescope find_files<CR>", "Files" },
+    F = { ":Telescope find_files hidden=true<CR>", "Files (hidden)" },
+    h = { ":Telescope oldfiles<CR>", "History" },
     m = { ":Telescope git_status<CR>", "Modified files" },
     r = { ":Telescope registers<CR>", "Registers" },
     t = { ":Telescope live_grep<CR>", "Files with text" },
-    T = { ":Telescope telescope-tabs list_tabs<CR>", "Tabs" },
   },
   F = { ":NvimTreeFindFileToggle<CR>", "File tree" },
   g = {
     name = "Git",
     b = { ":Git blame<CR>", "Blame" },
-    -- s = { ":Git<CR>", "Status" },
-    s = { ":FloatermNew lazygit<CR>", "Status" },
     d = { ":Git diff<CR>", "Diff" },
-    h = { ":DiffviewFileHistory<CR>", "History" },
+    g = {
+      name = "GitHub",
+      p = { ":! gh pr view --web<CR>", "Browse PR" },
+      P = { ":! gh pr create --web<CR>", "Create PR" },
+      w = { ":FloatermNew gh workflow view<CR>", "View workflow" }
+    },
     l = { ":Git pull<CR>", "Pull" },
     o = { ":GBrowse<CR>", "Open" },
     p = { ":Git push<CR>", "Push" },
     P = { ":Git push --force-with-lease<CR>", "Force push" },
+    s = { ":FloatermNew lazygit<CR>", "Status" },
   },
   q = { ":qa!<CR>", "Quit" },
   m = {
     name = "Markdown",
     p = { ":CocCommand markdown-preview-enhanced.openPreview<CR>", "Preview" },
     w = { ":Goyo<CR>:Pencil<CR>", "Write" }
-  },
-  p = {
-    name = "Packer",
-    s = { ":PackerSync<CR>", "Sync" }
   },
   s = { ":w!<CR>", "Save current buffer" },
   r = { ":lua require('spectre').open()<CR>", "Replace text" },
@@ -111,6 +102,11 @@ require("which-key").register({
     n = { ":tabnext<CR>", "Next tab" },
     p = { ":tabprevious<CR>", "Previous tab" }
   },
+  u = {
+    name = "Update",
+    c = { ":CocUpdate<CR>", "CoC" },
+    p = { ":PackerSync<CR>", "Packer" }
+  },
 }, { prefix = "<leader>", mode = "n" })
 
 require("which-key").register({
@@ -118,7 +114,7 @@ require("which-key").register({
     name = "Git",
     o = { ":'<,'>GBrowse<CR>", "Open" },
   },
-  s = { ":'<,'>lua require('spectre').open_visual()<CR>", "Search & replace" },
+  r = { ":'<,'>lua require('spectre').open_visual()<CR>", "Search & replace" },
   t = {
     name = "Text",
     s = { ":'<,'>sort<CR>", "Sort" },
