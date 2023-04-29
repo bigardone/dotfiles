@@ -42,8 +42,10 @@ require("which-key").register({
   c = {
     name = "Code",
     s = { ":Telescope coc document_symbols<CR>", "Symbols" },
-    a = { "<Plug>(coc-codeaction-line)", "Line actions" },
-    A = { "<Plug>(coc-codeaction)", "File actions" },
+    a = { ":Telescope coc line_code_actions<CR>", "Line actions" },
+    A = { ":Telescope coc file_code_actions<CR>", "File actions" },
+    -- a = { "<Plug>(coc-codeaction-line)", "Line actions" },
+    -- A = { "<Plug>(coc-codeaction)", "File actions" },
     e = {
       name = "Elixir",
       f = { ":!mix format<CR>", "Format code" }
