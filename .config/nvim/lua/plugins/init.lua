@@ -46,11 +46,12 @@ return require('packer').startup(function()
 
   -- Utils
   use 'folke/which-key.nvim'
-  use { 'phaazon/hop.nvim', branch = 'v2' }
+  use { 'smoka7/hop.nvim', tag = '*' }
   use { 'windwp/nvim-spectre', requires = 'nvim-lua/plenary.nvim' }
   use 'diegoulloao/nvim-file-location'
   use { "asiryk/auto-hlsearch.nvim", tag = "1.0.0" }
   use "lukas-reineke/indent-blankline.nvim"
+  use "m4xshen/hardtime.nvim"
 
   -- Markdown
   use 'junegunn/goyo.vim'

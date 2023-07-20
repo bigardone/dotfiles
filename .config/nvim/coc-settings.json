@@ -12,7 +12,8 @@
     "heex",
     "lua",
     "go",
-    "sql"
+    "sql",
+    "gleam"
   ],
   "coc.preferences.formatOnType": [
     "sql"
@@ -65,7 +66,7 @@
       ],
       "rootPatterns": [
         "mix.exs"
-      ]
+      ],
     },
     "elixirLS": {
       "command": "~/projects/elixir/elixir-ls/release/language_server.sh",
@@ -76,7 +77,13 @@
       ],
       "rootPatterns": [
         "mix.exs"
-      ]
+      ],
+      "settings": {
+        "dialyzerEnabled": false,
+        "suggestSpecs": true,
+        "signatureAfterComplete": true,
+        "enableTestLenses": true
+      }
     },
     "elmLS": {
       "command": "elm-language-server",
@@ -104,6 +111,15 @@
       "initializationOptions": {
         "usePlaceholders": true
       }
+    },
+    "gleam": {
+      "command": "gleam",
+      "args": [
+        "lsp"
+      ],
+      "filetypes": [
+        "gleam"
+      ]
     }
   },
   "yaml.format.enable": true,

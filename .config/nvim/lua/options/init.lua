@@ -17,6 +17,7 @@ vim.opt.winblend = 5
 -- Splits below and right
 vim.o.splitbelow = true
 vim.o.splitright = true
+vim.opt.splitkeep = "screen"
 
 -- Theme and styling
 vim.opt.background = 'dark'
@@ -32,8 +33,10 @@ highlight CursorLine ctermfg=black
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 ]]
 vim.opt.cursorline = true
-vim.o.ch = 0
+vim.o.ch = 3
 vim.o.ls = 0
+-- views can only be fully collapsed with the global statusline
+vim.opt.laststatus = 3
 
 -- Display text normally
 vim.o.conceallevel = 0
