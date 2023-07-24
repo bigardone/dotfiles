@@ -36,6 +36,7 @@ keybinds {
         bind "w" { ToggleFloatingPanes; SwitchToMode "Normal"; }
         bind "e" { TogglePaneEmbedOrFloating; SwitchToMode "Normal"; }
         bind "c" { SwitchToMode "RenamePane"; PaneNameInput 0;}
+        bind "a" { Clear;}
     }
     move {
         bind "Ctrl h" { SwitchToMode "Normal"; }
@@ -309,3 +310,11 @@ theme "catppuccin-macchiato"
 // The folder in which Zellij will look for themes
 //
 // theme_dir "/path/to/my/theme_dir"
+
+// Hide session name
+
+ui {
+    pane_frames {
+        hide_session_name true
+    }
+}
