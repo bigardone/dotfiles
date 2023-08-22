@@ -13,7 +13,8 @@
     "lua",
     "go",
     "sql",
-    "gleam"
+    "gleam",
+    "hcl"
   ],
   "coc.preferences.formatOnType": [
     "sql"
@@ -79,7 +80,7 @@
         "mix.exs"
       ],
       "settings": {
-        "dialyzerEnabled": false,
+        "dialyzerEnabled": true,
         "suggestSpecs": true,
         "signatureAfterComplete": true,
         "enableTestLenses": true
@@ -120,7 +121,24 @@
       "filetypes": [
         "gleam"
       ]
-    }
+    },
+    "terraform": {
+      "command": "terraform-ls",
+      "args": [
+        "serve"
+      ],
+      "filetypes": [
+        "terraform",
+        "tf"
+      ],
+      "initializationOptions": {},
+      "settings": {}
+    },
+    "lexicalLS": {
+      "command": "~/projects/elixir/lexical/_build/dev/rel/lexical/start_lexical.sh",
+      "filetypes": [],
+      "rootPatterns": [],
+    },
   },
   "yaml.format.enable": true,
   "snippets.ultisnips.pythonPrompt": false

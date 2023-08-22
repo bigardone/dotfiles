@@ -7,19 +7,28 @@ return require('packer').startup(function()
   use { "catppuccin/nvim", as = "catppuccin" }
 
   -- Coding
-  use { 'nvim-treesitter/nvim-treesitter', run = ":TSUpdate" }
+  use { 'nvim-treesitter/nvim-treesitter',
+    run = ":TSUpdate",
+  }
+  use({
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    after = "nvim-treesitter",
+    requires = "nvim-treesitter/nvim-treesitter",
+  })
+  use({
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    after = "nvim-treesitter",
+    requires = "nvim-treesitter/nvim-treesitter",
+  })
+  use({ 'theHamsta/nvim-treesitter-pairs' })
   use { 'neoclide/coc.nvim', branch = 'release' }
   use { 'nvim-telescope/telescope.nvim', requires = { { 'nvim-lua/plenary.nvim' } } }
   use 'fannheyward/telescope-coc.nvim'
   use 'LukasPietzschmann/telescope-tabs'
-  use 'windwp/nvim-autopairs'
   use 'ntpeters/vim-better-whitespace'
   use 'tpope/vim-surround'
   use 'vim-test/vim-test'
   use 'terrortylor/nvim-comment'
-  use 'elixir-editors/vim-elixir'
-  use 'kana/vim-textobj-user'
-  use 'andyl/vim-textobj-elixir'
   use 'tpope/vim-projectionist'
   use 'mattn/emmet-vim'
   use 'honza/vim-snippets'

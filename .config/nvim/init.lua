@@ -4,7 +4,6 @@ require('plugins')
 require('options')
 require('mappings')
 
-require('autopairs-config')
 require('better-whitespace-config')
 require('bufferline-config')
 require('close-buffers-config')
