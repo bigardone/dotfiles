@@ -14,10 +14,8 @@
     "go",
     "sql",
     "gleam",
-    "hcl"
-  ],
-  "coc.preferences.formatOnType": [
-    "sql"
+    "hcl",
+    "markdown",
   ],
   "workspace.rootPatterns": [
     ".git",
@@ -26,6 +24,12 @@
     "tailwind.config.js",
     "mix.exs"
   ],
+  "markdownlint.onSave": true,
+  "markdownlint.onOpen": false,
+  "markdownlint.config": {
+    "default": true,
+    "line_length": true
+  },
   "coc.preferences.useQuickfixForLocations": true,
   "codeLens.enable": true,
   "css.validate": false,
@@ -36,7 +40,7 @@
     "eelixir": "html",
     "heex": "html"
   },
-  "eslint.autoFixOnSave": true,
+  "eslint.autoFixOnSave": false,
   "suggest.languageSourcePriority": 100,
   "suggest.localityBonus": false,
   "suggest.minTriggerInputLength": 1,
@@ -52,7 +56,6 @@
   "tailwindCSS.includeLanguages": {
     "eelixir": "html",
     "elixir": "html",
-    "heex": "html"
   },
   "languageserver": {
     "credoLS": {
@@ -80,10 +83,8 @@
         "mix.exs"
       ],
       "settings": {
+        "autoBuild": true,
         "dialyzerEnabled": true,
-        "suggestSpecs": true,
-        "signatureAfterComplete": true,
-        "enableTestLenses": true
       }
     },
     "elmLS": {
