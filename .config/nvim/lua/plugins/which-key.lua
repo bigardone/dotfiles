@@ -54,6 +54,14 @@ return {
         P = { ":Git push --force-with-lease<CR>", "Force push" },
         s = { ":FloatermNew lazygit<CR>", "Status" },
       },
+      h = {
+        name = "Harpoon",
+        a = { ":lua require('harpoon.mark').add_file()<CR>", "Add mark" },
+        f = { ":lua require('harpoon.ui').toggle_quick_menu()<CR>", "Find marks" },
+        n = { ":lua require('harpoon.ui').nav_next()<CR>", "Next mark" },
+        p = { ":lua require('harpoon.ui').nav_prev()<CR>", "Previous mark" },
+
+      },
       q = { ":qa!<CR>", "Quit" },
       m = {
         name = "Markdown",
