@@ -1,6 +1,6 @@
 return {
   "kyazdani42/nvim-tree.lua",
-  lazy = false,
+  event = "VeryLazy",
   config = function()
     vim.cmd([[hi NvimTreeNormal guibg=NONE ctermbg=None]])
     require("nvim-tree").setup({

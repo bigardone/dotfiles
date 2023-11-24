@@ -1,4 +1,4 @@
 return {
   "honza/vim-snippets",
-  lazy = false
+  event = "VeryLazy"
 }

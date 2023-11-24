@@ -1,4 +1,4 @@
 return {
   "ntpeters/vim-better-whitespace",
-  lazy = false
+  event = "VeryLazy"
 }

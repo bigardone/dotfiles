@@ -85,6 +85,7 @@
       "settings": {
         "autoBuild": true,
         "dialyzerEnabled": true,
+        "suggestSpecs": false,
       }
     },
     "elmLS": {

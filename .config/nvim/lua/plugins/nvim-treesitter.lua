@@ -5,9 +5,13 @@ return {
     "nvim-treesitter/nvim-treesitter-textobjects",
     "theHamsta/nvim-treesitter-pairs"
   },
-  lazy = false,
+  event = "VeryLazy",
   config =
   function()
+    require('ts_context_commentstring').setup({})
+
+    vim.g.skip_ts_context_commentstring_module = true
+
     require("nvim-treesitter.configs").setup({
       ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
       ignore_install = { "po" },
@@ -86,9 +90,6 @@ return {
           longest_partner = false, -- whether to delete the longest or the shortest pair when multiple found.
           -- E.g. whether to delete the angle bracket or whole tag in  <pair> </pair>
         }
-      },
-      context_commentstring = {
-        enable = true,
       },
     })
   end,

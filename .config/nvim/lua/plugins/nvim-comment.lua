@@ -1,6 +1,6 @@
 return {
   "terrortylor/nvim-comment",
-  lazy = false,
+  event = "VeryLazy",
   config = function()
     require('nvim_comment').setup({
       {

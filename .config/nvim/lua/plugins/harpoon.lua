@@ -1,6 +1,6 @@
 return {
   "ThePrimeagen/harpoon",
-  lazy = false,
+  event = "VeryLazy",
   config = function()
     require("harpoon").setup({
       global_settings = {

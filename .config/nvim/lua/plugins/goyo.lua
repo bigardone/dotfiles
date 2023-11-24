@@ -1,4 +1,4 @@
 return {
   "junegunn/goyo.vim",
-  lazy = false
+  event = "VeryLazy"
 }

@@ -1,4 +1,4 @@
 return {
   "reedes/vim-pencil",
-  lazy = false,
+  event = "VeryLazy",
 }

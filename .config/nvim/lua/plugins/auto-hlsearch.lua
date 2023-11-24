@@ -1,7 +1,7 @@
 return {
   "asiryk/auto-hlsearch.nvim",
-  lazy = false,
-  confg = function()
+  event = "BufRead",
+  config = function()
     require("auto-hlsearch").setup({
       remap_keys = { "/", "?", "*", "#", "n", "N" },
       create_commands = true,

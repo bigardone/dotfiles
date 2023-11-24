@@ -1,6 +1,6 @@
 return {
   "tpope/vim-projectionist",
-  lazy = false,
+  event = "VeryLazy",
   config = function()
     vim.g.projectionist_heuristics = {
       ['mix.exs'] = {

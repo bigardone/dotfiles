@@ -1,6 +1,6 @@
 return {
   "voldikss/vim-floaterm",
-  lazy = false,
+  event = "VeryLazy",
   config = function()
     vim.g.floaterm_winblend = 9
     vim.g.floaterm_position = 'center'

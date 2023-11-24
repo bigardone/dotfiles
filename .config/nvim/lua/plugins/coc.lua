@@ -1,7 +1,7 @@
 return {
   "neoclide/coc.nvim",
   branch = "release",
-  lazy = false,
+  event = "VeryLazy",
   config = function()
     vim.g.coc_snippet_next = '<C-n>'
     vim.g.coc_snippet_prev = '<S-TAB>'

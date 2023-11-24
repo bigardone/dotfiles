@@ -1,6 +1,6 @@
 return {
   "m4xshen/hardtime.nvim",
-  lazy = false,
+  event = "VeryLazy",
   config = function()
     require('hardtime').setup({
       max_time = 1000,
