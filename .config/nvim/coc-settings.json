@@ -56,75 +56,21 @@
   "tailwindCSS.includeLanguages": {
     "eelixir": "html",
     "elixir": "html",
+    "heex": "html"
   },
   "languageserver": {
-    "credoLS": {
-      "command": "~/projects/elixir/credo-ls/bin/credo-language-server",
-      "args": [
-        "--stdio"
-      ],
-      "filetypes": [
-        "elixir",
-        "eelixir",
-        "heex"
-      ],
-      "rootPatterns": [
-        "mix.exs"
-      ],
+    "nextLS": {
+      "command": "~/projects/elixir/next-ls/burrito_out/next_ls_darwin_arm64",
     },
     "elixirLS": {
       "command": "~/projects/elixir/elixir-ls/release/language_server.sh",
-      "filetypes": [
-        "elixir",
-        "eelixir",
-        "heex"
-      ],
-      "rootPatterns": [
-        "mix.exs"
-      ],
       "settings": {
         "autoBuild": true,
         "dialyzerEnabled": true,
         "suggestSpecs": false,
       }
     },
-    "elmLS": {
-      "command": "elm-language-server",
-      "settings": {
-        "onlyUpdateDiagnosticsOnSave": true
-      },
-      "filetypes": [
-        "elm"
-      ],
-      "rootPatterns": [
-        "elm.json"
-      ]
-    },
-    "golangLS": {
-      "command": "gopls",
-      "rootPatterns": [
-        "go.mod",
-        ".vim/",
-        ".git/",
-        ".hg/"
-      ],
-      "filetypes": [
-        "go"
-      ],
-      "initializationOptions": {
-        "usePlaceholders": true
-      }
-    },
-    "gleam": {
-      "command": "gleam",
-      "args": [
-        "lsp"
-      ],
-      "filetypes": [
-        "gleam"
-      ]
-    },
-    "terraform": {
+    "terraformLS": {
       "command": "terraform-ls",
       "args": [
         "serve"
@@ -137,10 +83,25 @@
       "settings": {}
     },
     "lexicalLS": {
-      "command": "~/projects/elixir/lexical/_build/dev/rel/lexical/start_lexical.sh",
-      "filetypes": [],
-      "rootPatterns": [],
+      "command": "~/projects/elixir/lexical/_build/dev/package/lexical/bin/start_lexical.sh",
+      "filetypes": [
+        "elixir",
+        "eelixir",
+        "heex"
+      ],
+      "rootPatterns": [
+        "mix.exs"
+      ],
     },
+    "gleam": {
+      "command": "gleam",
+      "args": [
+        "lsp"
+      ],
+      "filetypes": [
+        "gleam"
+      ]
+    }
   },
   "yaml.format.enable": true,
   "snippets.ultisnips.pythonPrompt": false

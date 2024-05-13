@@ -1,4 +1,4 @@
 return {
   "kazhala/close-buffers.nvim",
-  event = "VeryLazy",
+  -- event = "VeryLazy",
 }

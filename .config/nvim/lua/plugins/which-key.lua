@@ -7,10 +7,13 @@ return {
         name = "Buffer",
         c = {
           name = "Close",
-          a = { ":BDelete all<CR>", "All" },
-          h = { ":BDelete hidden<CR>:<CR>", "Hidden" }
+          a = { ":BufferCloseAllButPinned<CR>", "All" },
+          h = { ":BufferCloseAllButVisible<CR>", "Hidden" }
         },
-        d = { ":bp<bar>sp<bar>bn<bar>bd<CR>", "Delete" },
+        -- d = { ":bp<bar>sp<bar>bn<bar>bd<CR>", "Delete" },
+        d = { ":BufferClose<CR>", "Delete" },
+        p = { ":BufferPin<CR>", "Pin" },
+        s = { ":BufferPick<CR>", "Switch" },
       },
       c = {
         name = "Code",
@@ -34,6 +37,7 @@ return {
         F = { ":Telescope find_files hidden=true<CR>", "Files (hidden)" },
         h = { ":Telescope oldfiles<CR>", "History" },
         m = { ":Telescope git_status<CR>", "Modified files" },
+        p = { ":Telescope lazy_plugins<CR>", "Plugins" },
         r = { ":Telescope registers<CR>", "Registers" },
         t = { ":Telescope live_grep<CR>", "Files with text" },
       },
@@ -52,6 +56,12 @@ return {
         o = { ":GBrowse<CR>", "Open" },
         p = { ":Git push<CR>", "Push" },
         P = { ":Git push --force-with-lease<CR>", "Force push" },
+        r = { function()
+          local repo = vim.fn.input "Repository name / URI: "
+          if repo ~= "" then
+            require("git-dev").open(repo)
+          end
+        end, "Open repository" },
         s = { ":FloatermNew lazygit<CR>", "Status" },
       },
       h = {

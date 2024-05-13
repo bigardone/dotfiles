@@ -3,7 +3,8 @@ return {
   event = "VeryLazy",
   dependencies = {
     "nvim-lua/plenary.nvim",
-    "fannheyward/telescope-coc.nvim"
+    "fannheyward/telescope-coc.nvim",
+    "polirritmico/telescope-lazy-plugins.nvim"
   },
   config = function()
     local actions = require('telescope.actions')
