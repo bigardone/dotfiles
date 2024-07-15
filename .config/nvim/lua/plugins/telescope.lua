@@ -13,6 +13,9 @@ return {
 
     require('telescope').setup({
       defaults = {
+        preview = {
+          treesitter = false,
+        },
         prompt_prefix = "",
         layout_config = {
           prompt_position = "top",

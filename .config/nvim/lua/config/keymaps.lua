@@ -40,11 +40,7 @@ vim.api.nvim_set_keymap("n", "<C-k>", "<cmd>HopAnywhere<CR>", {})
 vim.api.nvim_set_keymap("v", "<C-k>", "<cmd>HopAnywhere<CR>", {})
 
 -- Toggle NvimTree
-vim.api.nvim_set_keymap("n", "<C-n>", ':NvimTreeFindFileToggle<CR>', {})
+vim.api.nvim_set_keymap("n", "<C-t>", ":NvimTreeFindFileToggle<CR>", { silent = true })
 
 -- Emmet
 vim.api.nvim_set_keymap("n", "<Leader>,", '<C-y>,', {})
-
--- Floaterm
-vim.api.nvim_set_keymap("n", "<C-t>", ":FloatermToggle<CR>", { silent = true })
-vim.api.nvim_set_keymap("t", "<C-t>", "<C-\\><C-n>:FloatermToggle<CR>", { silent = true })

@@ -2,119 +2,111 @@ return {
   "folke/which-key.nvim",
   event = "VeryLazy",
   init = function()
-    require("which-key").register({
-      b = {
-        name = "Buffer",
-        c = {
-          name = "Close",
-          a = { ":BufferCloseAllButPinned<CR>", "All" },
-          h = { ":BufferCloseAllButVisible<CR>", "Hidden" }
-        },
-        -- d = { ":bp<bar>sp<bar>bn<bar>bd<CR>", "Delete" },
-        d = { ":BufferClose<CR>", "Delete" },
-        p = { ":BufferPin<CR>", "Pin" },
-        s = { ":BufferPick<CR>", "Switch" },
-      },
-      c = {
-        name = "Code",
-        s = { ":Telescope coc document_symbols<CR>", "Symbols" },
-        a = { ":Telescope coc line_code_actions<CR>", "Line actions" },
-        A = { ":Telescope coc file_code_actions<CR>", "File actions" },
-        -- a = { "<Plug>(coc-codeaction-line)", "Line actions" },
-        -- A = { "<Plug>(coc-codeaction)", "File actions" },
-        e = {
-          name = "Elixir",
-          f = { ":!mix format<CR>", "Format code" }
-        },
-        f = { ":CocCommand eslint.executeAutofix<CR>", "Autofix" },
-        r = { "<Plug>(coc-rename)", "Rename" },
-      },
-      f = {
-        name = "Find",
-        b = { ":Telescope buffers<CR>", "Buffers" },
-        d = { ":Telescope coc diagnostics<CR>", "Diagnostics" },
-        f = { ":Telescope find_files<CR>", "Files" },
-        F = { ":Telescope find_files hidden=true<CR>", "Files (hidden)" },
-        h = { ":Telescope oldfiles<CR>", "History" },
-        m = { ":Telescope git_status<CR>", "Modified files" },
-        p = { ":Telescope lazy_plugins<CR>", "Plugins" },
-        r = { ":Telescope registers<CR>", "Registers" },
-        t = { ":Telescope live_grep<CR>", "Files with text" },
-      },
-      F = { ":NvimTreeFindFileToggle<CR>", "File tree" },
-      g = {
-        name = "Git",
-        b = { ":Git blame<CR>", "Blame" },
-        d = { ":Git diff<CR>", "Diff" },
-        g = {
-          name = "GitHub",
-          p = { ":! gh pr view --web<CR>", "Browse PR" },
-          P = { ":! gh pr create --web<CR>", "Create PR" },
-          w = { ":FloatermNew gh workflow view<CR>", "View workflow" }
-        },
-        l = { ":Git pull<CR>", "Pull" },
-        o = { ":GBrowse<CR>", "Open" },
-        p = { ":Git push<CR>", "Push" },
-        P = { ":Git push --force-with-lease<CR>", "Force push" },
-        r = { function()
+    require("which-key").add({
+      {
+        -- Normal mode --------------------------------------------------------------------------
+        mode = { "n" },
+        -- Buffers ------------------------------------------------------------------------------
+        { "<leader>b",   group = "Buffer" },
+        { "<leader>bc",  group = "Close" },
+        { "<leader>bca", ":BufferCloseAllButPinned<CR>",          desc = "All" },
+        { "<leader>bch", ":BufferCloseAllButVisible<CR>",         desc = "Hidden" },
+        { "<leader>bd",  ":BufferClose<CR>",                      desc = "Delete" },
+        { "<leader>bp",  ":BufferPin<CR>",                        desc = "Pin" },
+        { "<leader>bs",  ":BufferPick<CR>",                       desc = "Switch" },
+        -- Code ---------------------------------------------------------------------------------
+        { "<leader>c",   group = "Code" },
+        { "<leader>ca",  ":Telescope coc line_code_actions<CR>",  desc = "Line actions" },
+        { "<leader>cA",  ":Telescope coc file_code_actions<CR>",  desc = "File actions" },
+        { "<leader>ce",  group = "Elixir" },
+        { "<leader>cef", ":!mix format<CR>",                      desc = "Format code" },
+        { "<leader>cf",  ":CocCommand eslint.executeAutofix<CR>", desc = "Autofix" },
+        { "<leader>cr",  "<Plug>(coc-rename)",                    desc = "Rename" },
+        { "<leader>cs",  ":Telescope coc document_symbols<CR>",   desc = "Symbols" },
+        -- Find ---------------------------------------------------------------------------------
+        { "<leader>f",   group = "Find" },
+        { "<leader>fb",  ":Telescope buffers<CR>",                desc = "Buffers" },
+        { "<leader>fd",  ":Telescope coc diagnostics<CR>",        desc = "Diagnostics" },
+        { "<leader>ff",  ":Telescope find_files<CR>",             desc = "Files" },
+        { "<leader>fF",  ":Telescope find_files hidden=true<CR>", desc = "Files (hidden)" },
+        { "<leader>fh",  ":Telescope oldfiles<CR>",               desc = "History" },
+        { "<leader>fm",  ":Telescope git_status<CR>",             desc = "Modified files" },
+        { "<leader>fp",  ":Telescope lazy_plugins<CR>",           desc = "Plugins" },
+        { "<leader>fr",  ":Telescope registers<CR>",              desc = "Registers" },
+        { "<leader>ft",  ":Telescope live_grep<CR>",              desc = "Files with text" },
+        -- Git ----------------------------------------------------------------------------------
+        { "<leader>g",   group = "Git" },
+        { "<leader>gb",  ":Git blame<CR>",                        desc = "Blame" },
+        { "<leader>gd",  ":Git diff<CR>",                         desc = "Diff" },
+        { "<leader>gg",  group = "GitHub" },
+        { "<leader>ggp", ":! gh pr view --web<CR>",               desc = "Browse PR" },
+        { "<leader>ggP", ":! gh pr create --web<CR>",             desc = "Create PR" },
+        { "<leader>ggw", ":FloatermNew gh workflow view<CR>",     desc = "View workflow" },
+        { "<leader>gl",  ":Git pull<CR>",                         desc = "Pull" },
+        { "<leader>go",  ":GBrowse<CR>",                          desc = "Open" },
+        { "<leader>gp",  ":Git push<CR>",                         desc = "Push" },
+        { "<leader>gP",  ":Git push --force-with-lease<CR>",      desc = "Force push" },
+        { "<leader>gr", function()
           local repo = vim.fn.input "Repository name / URI: "
           if repo ~= "" then
             require("git-dev").open(repo)
           end
-        end, "Open repository" },
-        s = { ":FloatermNew lazygit<CR>", "Status" },
+        end, desc = "Open repository" },
+        { "<leader>gs", ":FloatermNew lazygit<CR>",                              desc = "Status" },
+        -- Harpoon ------------------------------------------------------------------------------
+        { "<leader>h",  group = "Harpoon" },
+        { "<leader>ha", ":lua require('harpoon.mark').add<CR>",                  desc = "Add mark" },
+        { "<leader>hf", ":lua require('harpoon.ui').toggle_quick_menu()<CR>",    desc = "Find marks" },
+        { "<leader>hn", ":lua require('harpoon.ui').nav_next()<CR>",             desc = "Next mark" },
+        { "<leader>hp", ":lua require('harpoon.ui').nav_prev()<CR>",             desc = "Previous mark" },
+        -- Quit ---------------------------------------------------------------------------------
+        { "<leader>q",  ":qa!<CR>",                                              desc = "Quit" },
+        -- Markdown -----------------------------------------------------------------------------
+        { "<leader>m",  group = "Markdown" },
+        { "<leader>mp", ":CocCommand markdown-preview-enhanced.openPreview<CR>", desc = "Preview" },
+        { "<leader>mw", ":Goyo<CR>:Pencil<CR>",                                  desc = "Write" },
+        -- Save ---------------------------------------------------------------------------------
+        { "<leader>s",  ":w!<CR>",                                               desc = "Save current buffer" },
+        -- Replace ------------------------------------------------------------------------------
+        { "<leader>r",  ":lua require('spectre').open()<CR>",                    desc = "Replace text" },
+        -- Test ---------------------------------------------------------------------------------
+        { "<leader>t",  group = "Test" },
+        { "<leader>ta", ":TestSuit<CR>",                                         desc = "All" },
+        { "<leader>tf", ":TestFile<CR>",                                         desc = "File" },
+        { "<leader>tl", ":TestLast<CR>",                                         desc = "Last" },
+        { "<leader>tn", ":TestNearest<CR>",                                      desc = "Nearest" },
+        { "<leader>tv", "<cmd>AV<CR>",                                           desc = "Visit" },
+        -- Tabs ---------------------------------------------------------------------------------
+        { "<leader>T",  group = "Tabs" },
+        { "<leader>Tc", ":tabnew<CR>",                                           desc = "Create tab" },
+        { "<leader>Td", ":tabclose<CR>",                                         desc = "Delete tab" },
+        { "<leader>Tn", ":tabnext<CR>",                                          desc = "Next tab" },
+        { "<leader>Tp", ":tabprevious<CR>",                                      desc = "Previous tab" },
+        -- Update -------------------------------------------------------------------------------
+        { "<leader>u",  group = "Update" },
+        { "<leader>uc", ":CocUpdate<CR>",                                        desc = "CoC" },
+        { "<leader>up", ":Lazy sync<CR>",                                        desc = "Plugins" },
       },
-      h = {
-        name = "Harpoon",
-        a = { ":lua require('harpoon.mark').add_file()<CR>", "Add mark" },
-        f = { ":lua require('harpoon.ui').toggle_quick_menu()<CR>", "Find marks" },
-        n = { ":lua require('harpoon.ui').nav_next()<CR>", "Next mark" },
-        p = { ":lua require('harpoon.ui').nav_prev()<CR>", "Previous mark" },
-
-      },
-      q = { ":qa!<CR>", "Quit" },
-      m = {
-        name = "Markdown",
-        p = { ":CocCommand markdown-preview-enhanced.openPreview<CR>", "Preview" },
-        w = { ":Goyo<CR>:Pencil<CR>", "Write" }
-      },
-      s = { ":w!<CR>", "Save current buffer" },
-      r = { ":lua require('spectre').open()<CR>", "Replace text" },
-      t = {
-        name = "Test",
-        a = { ":TestSuit<CR>", "All" },
-        f = { ":TestFile<CR>", "File" },
-        l = { ":TestLast<CR>", "Last" },
-        n = { ":TestNearest<CR>", "Nearest" },
-        v = { "<cmd>AV<CR>", "Visit" }
-      },
-      T = {
-        name = "Tabs",
-        c = { ":tabnew<CR>", "Create tab" },
-        d = { ":tabclose<CR>", "Delete tab" },
-        n = { ":tabnext<CR>", "Next tab" },
-        p = { ":tabprevious<CR>", "Previous tab" }
-      },
-      u = {
-        name = "Update",
-        c = { ":CocUpdate<CR>", "CoC" },
-        p = { ":Lazy sync<CR>", "Plugins" }
-      },
-    }, { prefix = "<leader>", mode = "n" })
-
-    require("which-key").register({
-      g = {
-        name = "Git",
-        o = { ":'<,'>GBrowse<CR>", "Open" },
-      },
-      r = { ":'<,'>lua require('spectre').open_visual()<CR>", "Search & replace" },
-      t = {
-        name = "Text",
-        s = { ":'<,'>sort<CR>", "Sort" },
-      },
-    }, { prefix = "<leader>", mode = "v" })
+      {
+        -- Visual mode --------------------------------------------------------------------------
+        mode = { "v" },
+        -- Git ----------------------------------------------------------------------------------
+        { "<leader>g",  group = "Git" },
+        { "<leader>go", ":'<,'>GBrowse<CR>",                              desc = "Open" },
+        -- Find and replace ---------------------------------------------------------------------
+        { "<leader>r",  ":'<,'>lua require('spectre').open_visual()<CR>", desc = "Replace text" },
+        -- Text ---------------------------------------------------------------------------------
+        { "<leader>t",  group = "Text" },
+        { "<leader>ts", ":'<,'>sort<CR>",                                 desc = "Sort" },
+      }
+    }
+    )
   end,
   opts = {
+    expand = 0,
+    icons = {
+      rules = false,
+    },
     plugins = {
       marks = true, -- shows a list of your marks on ' and `
       registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
@@ -133,6 +125,7 @@ return {
         g = true, -- bindings for prefixed with g
       },
     },
+    sort = { "manual", "local", "order", "group", "alphanum", "mod", "lower", "icase" },
     window = {
       border = "single", -- none, single, double, shadow
       position = "bottom", -- bottom, top

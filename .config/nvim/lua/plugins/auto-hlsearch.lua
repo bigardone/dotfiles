@@ -1,5 +1,6 @@
 return {
-  "asiryk/auto-hlsearch.nvim",
+  "bigardone/auto-hlsearch.nvim",
+  branch = "nvim-lua-warning-fix",
   event = "BufRead",
   config = function()
     require("auto-hlsearch").setup({
