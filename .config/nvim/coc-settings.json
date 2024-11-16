@@ -64,10 +64,19 @@
     },
     "elixirLS": {
       "command": "~/projects/elixir/elixir-ls/release/language_server.sh",
+      "filetypes": [
+        "elixir",
+        "eelixir",
+        "heex"
+      ],
+      "rootPatterns": [
+        "mix.exs"
+      ],
       "settings": {
-        "autoBuild": true,
-        "dialyzerEnabled": true,
-        "suggestSpecs": false,
+        "elixirLS.autoBuild": true,
+        "elixirLS.dialyzerEnabled": true,
+        "elixirLS.suggestSpecs": false,
+        "elixirLS.autoInsertRequiredAlias": false,
       }
     },
     "terraformLS": {
@@ -84,14 +93,6 @@
     },
     "lexicalLS": {
       "command": "~/projects/elixir/lexical/_build/dev/package/lexical/bin/start_lexical.sh",
-      "filetypes": [
-        "elixir",
-        "eelixir",
-        "heex"
-      ],
-      "rootPatterns": [
-        "mix.exs"
-      ],
     },
     "gleam": {
       "command": "gleam",

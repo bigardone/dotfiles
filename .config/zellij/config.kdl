@@ -5,7 +5,7 @@ keybinds {
         // tmux
         bind "Ctrl f" { SwitchToMode "Tmux"; }
         unbind "Ctrl b"
-        bind "Alt n" { NewPane; }
+        bind "Alt n" { NewPane; SwitchToMode "Normal"; }
         bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
         bind "Alt l" "Alt Right" { MoveFocusOrTab "Right"; }
         bind "Alt j" "Alt Down" { MoveFocus "Down"; }
@@ -15,6 +15,8 @@ keybinds {
         bind "Alt [" { PreviousSwapLayout; }
         bind "Alt ]" { NextSwapLayout; }
         bind "Alt c" { Clear; }
+        bind "Alt f" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
+        bind "Alt w" { ToggleFloatingPanes; SwitchToMode "Normal"; }
     }
     tmux clear-defaults=true {
         bind "Ctrl f" { Write 2; SwitchToMode "Normal"; }
@@ -349,3 +351,5 @@ ui {
         hide_session_name true
     }
 }
+
+support_kitty_keyboard_protocol false

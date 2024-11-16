@@ -103,38 +103,157 @@ return {
     )
   end,
   opts = {
-    expand = 0,
-    icons = {
-      rules = false,
+    -- "classic" | "modern" | "helix"
+    preset = "helix",
+    -- Delay before showing the popup. Can be a number or a function that returns a number.
+    delay = 300,
+    filter = function(mapping)
+      -- example to exclude mappings without a description
+      return mapping.desc and mapping.desc ~= ""
+    end,
+    --- You can add any mappings here, or use `require('which-key').add()` later
+    spec = {},
+    -- show a warning when issues were detected with your mappings
+    notify = true,
+    -- Enable/disable WhichKey for certain mapping modes
+    triggers = {
+      { "<auto>", mode = "nixsotc" },
     },
+    -- Start hidden and wait for a key to be pressed before showing the popup
+    -- Only used by enabled xo mapping modes.
+    defer = function(ctx)
+      return ctx.mode == "V" or ctx.mode == "<C-V>"
+    end,
     plugins = {
       marks = true, -- shows a list of your marks on ' and `
       registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
-      spelling = {
-        enabled = false, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
-      },
       -- the presets plugin, adds help for a bunch of default keybindings in Neovim
       -- No actual key bindings are created
+      spelling = {
+        enabled = false, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+        suggestions = 20, -- how many suggestions should be shown in the list?
+      },
       presets = {
-        operators = true, -- adds help for operators like d, y, ... and registers them for motion / text object completion
+        operators = true, -- adds help for operators like d, y, ...
         motions = true, -- adds help for motions
         text_objects = true, -- help for text objects triggered after entering an operator
         windows = true, -- default bindings on <c-w>
-        nav = true, -- misc bindings to work with windows
+        nav = false, -- misc bindings to work with windows
         z = true, -- bindings for folds, spelling and others prefixed with z
-        g = true, -- bindings for prefixed with g
+        g = false, -- bindings for prefixed with g
       },
     },
-    sort = { "manual", "local", "order", "group", "alphanum", "mod", "lower", "icase" },
-    window = {
-      border = "single", -- none, single, double, shadow
-      position = "bottom", -- bottom, top
-      margin = { 0, 0, 0, 0 }, -- extra window margin [top, right, bottom, left]
-      padding = { 1, 0, 1, 0 }, -- extra window padding [top, right, bottom, left]
-      winblend = 10
+    win = {
+      -- don't allow the popup to overlap with the cursor
+      no_overlap = true,
+      -- width = 1,
+      -- height = { min = 4, max = 25 },
+      -- col = 0,
+      -- row = math.huge,
+      border = "single",
+      padding = { 1, 0 }, -- extra window padding [top/bottom, right/left]
+      title = false,
+      title_pos = "center",
+      zindex = 1000,
+      -- Additional vim.wo and vim.bo options
+      bo = {},
+      wo = {
+        -- winblend = 10, -- value between 0-100 0 for fully opaque and 100 for fully transparent
+      },
     },
-    ignore_missing = true,
-    show_help = false,
-    show_keys = false,
+    layout = {
+      width = { min = 20 }, -- min and max width of the columns
+      spacing = 3, -- spacing between columns
+      align = "left", -- align columns left, center or right
+    },
+    keys = {
+      scroll_down = "<c-d>", -- binding to scroll down inside the popup
+      scroll_up = "<c-u>", -- binding to scroll up inside the popup
+    },
+    --- Mappings are sorted using configured sorters and natural sort of the keys
+    --- Available sorters:
+    --- * local: buffer-local mappings first
+    --- * order: order of the items (Used by plugins like marks / registers)
+    --- * group: groups last
+    --- * alphanum: alpha-numerical first
+    --- * mod: special modifier keys last
+    --- * manual: the order the mappings were added
+    --- * case: lower-case first
+    sort = { "manual", "local", "order", "group", "alphanum", "mod" },
+    expand = 0, -- expand groups when <= n mappings
+    -- expand = function(node)
+    --   return not node.desc -- expand all nodes without a description
+    -- end,
+    replace = {
+      key = {
+        function(key)
+          return require("which-key.view").format(key)
+        end,
+        -- { "<Space>", "SPC" },
+      },
+      desc = {
+        { "<Plug>%((.*)%)", "%1" },
+        { "^%+",            "" },
+        { "<[cC]md>",       "" },
+        { "<[cC][rR]>",     "" },
+        { "<[sS]ilent>",    "" },
+        { "^lua%s+",        "" },
+        { "^call%s+",       "" },
+        { "^:%s*",          "" },
+      },
+    },
+    icons = {
+      breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
+      separator = "➜", -- symbol used between a key and it's label
+      group = "+", -- symbol prepended to a group
+      ellipsis = "…",
+      --- See `lua/which-key/icons.lua` for more details
+      --- Set to `false` to disable keymap icons
+      rules = false,
+      -- use the highlights from mini.icons
+      -- When `false`, it will use `WhichKeyIcon` instead
+      colors = true,
+      -- used by key format
+      keys = {
+        -- Up = " ",
+        -- Down = " ",
+        -- Left = " ",
+        -- Right = " ",
+        -- C = "󰘴 ",
+        -- M = "󰘵 ",
+        -- S = "󰘶 ",
+        -- CR = "󰌑 ",
+        -- Esc = "󱊷 ",
+        -- ScrollWheelDown = "󱕐 ",
+        -- ScrollWheelUp = "󱕑 ",
+        -- NL = "󰌑 ",
+        -- BS = "⌫",
+        -- Space = "󱁐 ",
+        -- Tab = "󰌒 ",
+        -- F1 = "󱊫",
+        -- F2 = "󱊬",
+        -- F3 = "󱊭",
+        -- F4 = "󱊮",
+        -- F5 = "󱊯",
+        -- F6 = "󱊰",
+        -- F7 = "󱊱",
+        -- F8 = "󱊲",
+        -- F9 = "󱊳",
+        -- F10 = "󱊴",
+        -- F11 = "󱊵",
+        -- F12 = "󱊶",
+      },
+    },
+    show_help = false, -- show a help message in the command line for using WhichKey
+    show_keys = false, -- show the currently pressed key and its label as a message in the command line
+    -- Which-key automatically sets up triggers for your mappings.
+    -- But you can disable this and setup the triggers yourself.
+    -- Be aware, that triggers are not needed for visual and operator pending mode.
+    disable = {
+      -- disable WhichKey for certain buf types and file types.
+      ft = {},
+      bt = {},
+    },
+    debug = false, -- enable wk.log in the current directory
   }
 }
