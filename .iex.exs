@@ -36,3 +36,5 @@ defmodule IExHelpers do
 end
 
 import IExHelpers
+
+Mix.ensure_application!(:observer)
