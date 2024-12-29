@@ -1,0 +1,24 @@
+# Clipboard 
+clipboard-read = allow
+clipboard-write = allow
+clipboard-trim-trailing-spaces = true
+
+# Initial command
+command = zellij --layout compact
+
+# Font
+font-family = "Hack Nerd Font"
+font-size = 14
+font-style-bold = false
+font-family-bold-italic = false
+
+# Keyboard
+macos-option-as-alt = left
+macos-auto-secure-input = true
+macos-secure-input-indication = true
+
+# Appearance
+mouse-hide-while-typing = true
+shell-integration = zsh
+term = xterm-256color
+theme = "catppuccin-macchiato"
