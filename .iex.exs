@@ -2,6 +2,7 @@
 Application.put_env(:elixir, :ansi_enabled, true)
 
 IEx.configure(
+  auto_reload: true,
   history_size: 100,
   inspect: [
     limit: 5_000,
