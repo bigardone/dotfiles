@@ -10,7 +10,8 @@ command = /bin/zsh -l -c "zellij --layout compact"
 font-family = "Hack Nerd Font"
 font-size = 14
 font-style-bold = false
-font-family-bold-italic = false
+font-style-bold-italic = false
+font-style-italic = false
 
 # Keyboard
 link-url = true
