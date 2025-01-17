@@ -6,6 +6,10 @@ return {
       {
         -- Normal mode --------------------------------------------------------------------------
         mode = { "n" },
+        -- Avante -------------------------------------------------------------------------------
+        { "<leader>a",   group = "Avante" },
+        { "<leader>aa",  ":AvanteAsk<CR>",                        desc = "Ask" },
+        { "<leader>ac",  ":AvanteClear<CR>",                      desc = "Clear" },
         -- Buffers ------------------------------------------------------------------------------
         { "<leader>b",   group = "Buffer" },
         { "<leader>bc",  group = "Close" },
@@ -90,6 +94,10 @@ return {
       {
         -- Visual mode --------------------------------------------------------------------------
         mode = { "v" },
+        -- Avante -------------------------------------------------------------------------------
+        { "<leader>a",  group = "Avante" },
+        { "<leader>aa", function() require('avante.api').ask() end,       desc = "Ask" },
+        { "<leader>ae", function() require('avante.api').edit() end,      desc = "Edit" },
         -- Git ----------------------------------------------------------------------------------
         { "<leader>g",  group = "Git" },
         { "<leader>go", ":'<,'>GBrowse<CR>",                              desc = "Open" },
