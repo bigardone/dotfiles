@@ -4,7 +4,7 @@ clipboard-write = allow
 clipboard-trim-trailing-spaces = true
 
 # Initial command
-command = /bin/zsh -l -c "zellij --layout compact"
+command = "/opt/homebrew/bin/zellij --layout compact"
 
 # Font
 font-family = "Hack Nerd Font"
