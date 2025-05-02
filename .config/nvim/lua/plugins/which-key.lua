@@ -23,9 +23,10 @@ return {
         { "<leader>ca",  ":Telescope coc line_code_actions<CR>",  desc = "Line actions" },
         { "<leader>cA",  ":Telescope coc file_code_actions<CR>",  desc = "File actions" },
         { "<leader>ce",  group = "Elixir" },
+        { "<leader>cea", ":lua vim.lsp.buf.code_action()<CR>",    desc = "Code actions" },
         { "<leader>cef", ":!mix format<CR>",                      desc = "Format code" },
         { "<leader>cf",  ":CocCommand eslint.executeAutofix<CR>", desc = "Autofix" },
-        { "<leader>cr",  "<Plug>(coc-rename)",                    desc = "Rename" },
+        { "<leader>cr",  ":lua vim.lsp.buf.rename()<CR>",              desc = "Rename" },
         { "<leader>cs",  ":Telescope coc document_symbols<CR>",   desc = "Symbols" },
         -- Find ---------------------------------------------------------------------------------
         { "<leader>f",   group = "Find" },
@@ -59,7 +60,7 @@ return {
         { "<leader>gs", ":FloatermNew lazygit<CR>",                              desc = "Status" },
         -- Harpoon ------------------------------------------------------------------------------
         { "<leader>h",  group = "Harpoon" },
-        { "<leader>ha", ":lua require('harpoon.mark').add<CR>",                  desc = "Add mark" },
+        { "<leader>ha", ":lua require('harpoon.mark').add_file()<CR>",                  desc = "Add mark" },
         { "<leader>hf", ":lua require('harpoon.ui').toggle_quick_menu()<CR>",    desc = "Find marks" },
         { "<leader>hn", ":lua require('harpoon.ui').nav_next()<CR>",             desc = "Next mark" },
         { "<leader>hp", ":lua require('harpoon.ui').nav_prev()<CR>",             desc = "Previous mark" },
@@ -98,6 +99,10 @@ return {
         { "<leader>a",  group = "Avante" },
         { "<leader>aa", function() require('avante.api').ask() end,       desc = "Ask" },
         { "<leader>ae", function() require('avante.api').edit() end,      desc = "Edit" },
+        -- Code ---------------------------------------------------------------------------------
+        { "<leader>c",   group = "Code" },
+        { "<leader>ce",  group = "Elixir" },
+        { "<leader>cea", ":'<,'>lua vim.lsp.buf.code_action()<CR>",    desc = "Code actions" },
         -- Git ----------------------------------------------------------------------------------
         { "<leader>g",  group = "Git" },
         { "<leader>go", ":'<,'>GBrowse<CR>",                              desc = "Open" },

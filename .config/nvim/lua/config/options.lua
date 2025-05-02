@@ -113,11 +113,12 @@ vim.o.confirm = true
 -- Folds
 vim.o.foldmethod = "manual"
 
-vim.g.python3_host_prog = "/opt/homebrew/bin/python3"
-
 -- LSP
 vim.diagnostic.config({
   virtual_text = false
 })
 vim.o.updatetime = 250
 vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
+
+-- CoC node
+vim.g.coc_node_path = "/opt/homebrew/bin/node"

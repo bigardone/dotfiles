@@ -22,7 +22,8 @@
     ".hg",
     ".projections.json",
     "tailwind.config.js",
-    "mix.exs"
+    "mix.exs",
+    "app.css"
   ],
   "markdownlint.onSave": true,
   "markdownlint.onOpen": false,
@@ -59,9 +60,6 @@
     "heex": "html"
   },
   "languageserver": {
-    "nextLS": {
-      "command": "~/projects/elixir/next-ls/burrito_out/next_ls_darwin_arm64",
-    },
     "elixirLS": {
       "command": "~/projects/elixir/elixir-ls/release/language_server.sh",
       "filetypes": [
@@ -90,9 +88,6 @@
       ],
       "initializationOptions": {},
       "settings": {}
-    },
-    "lexicalLS": {
-      "command": "~/projects/elixir/lexical/_build/dev/package/lexical/bin/start_lexical.sh",
     },
     "gleam": {
       "command": "gleam",
