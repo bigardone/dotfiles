@@ -8,7 +8,13 @@ return {
       filetypes = {
         TelescopePrompt = false,
         ["dap-repl"] = false
-      }
+      },
+      filter = function(bufnr)
+        if vim.endswith(vim.api.nvim_buf_get_name(bufnr), ".envrc") then
+          return false
+        end
+        return true
+      end
     })
 
     vim.keymap.set("i", "<C-e>", neocodeium.accept)

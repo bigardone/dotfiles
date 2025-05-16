@@ -10,9 +10,17 @@ return {
     "stevearc/dressing.nvim",
     "nvim-lua/plenary.nvim",
     "MunifTanjim/nui.nvim",
+    "hrsh7th/nvim-cmp"
   },
   opts = {
-    provider = 'deepseek',
+    -- auto_suggestions_provider = "deepseek",
+    -- provider = 'deepseek',
+    auto_suggestions_provider = "openai",
+    provider = 'openai',
+
+      openai = {
+        model = "gpt-4.1-mini-2025-04-14",
+      },
     vendors = {
       deepseek = {
         __inherited_from = 'openai',
@@ -21,10 +29,21 @@ return {
         model = 'deepseek-coder',
         max_tokens = 8192,
       },
+      qwen = {
+        __inherited_from = "openai",
+        model = "qwen2.5-coder-32b-instruct",
+        endpoint = "http://127.0.0.1:1234/v1",
+      },
     },
-    auto_suggestions_provider = "openai",
     behaviour = {
+      -- auto_suggestions = true,
       auto_set_keymaps = false,
+    },
+    mappings = {
+      suggestion = {
+        accept = "<C-e>",
+        next = "<C-n>",
+      },
     },
     hints = {
       enabled = false

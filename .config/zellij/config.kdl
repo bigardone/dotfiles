@@ -5,9 +5,14 @@
 keybinds clear-defaults=true {
     normal {
         bind "Ctrl f" { SwitchToMode "tmux"; }
+
+        bind "Alt c" { Clear; SwitchToMode "normal"; }
+        bind "Alt e" { EditScrollback; SwitchToMode "normal"; }
         bind "Alt f" { ToggleFocusFullscreen; SwitchToMode "normal"; }
         bind "Alt n" { NewPane; SwitchToMode "normal"; }
         bind "Alt p" { TogglePanePinned; SwitchToMode "normal"; }
+        bind "Alt s" { SwitchToMode "entersearch"; SearchInput 0; }
+        bind "Alt t" { NewTab; SwitchToMode "normal"; }
         bind "Alt w" { ToggleFloatingPanes; SwitchToMode "normal"; }
     }
     locked {
