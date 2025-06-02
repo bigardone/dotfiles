@@ -8,7 +8,7 @@ command = "/opt/homebrew/bin/zellij --layout compact"
 
 # Font
 font-family = "Hack Nerd Font"
-font-size = 14
+font-size = 13
 font-style-bold = false
 font-style-bold-italic = false
 font-style-italic = false

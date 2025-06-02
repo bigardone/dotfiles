@@ -61,7 +61,7 @@
   },
   "languageserver": {
     "elixirLS": {
-      "command": "~/projects/elixir/elixir-ls/release/language_server.sh",
+      "command": "~/projects/os/elixir-ls/release/language_server.sh",
       "filetypes": [
         "elixir",
         "eelixir",
