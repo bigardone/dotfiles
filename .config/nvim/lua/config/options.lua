@@ -121,4 +121,4 @@ vim.o.updatetime = 250
 vim.cmd [[autocmd CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 
 -- CoC node
-vim.g.coc_node_path = "/opt/homebrew/bin/node"
+vim.g.coc_node_path = "/Users/ricardogarciavega/.asdf/shims/node"

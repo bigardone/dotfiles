@@ -1,22 +1,6 @@
 {
-  "coc.preferences.extensionUpdateCheck": "weekly",
-  "coc.preferences.formatOnSaveFiletypes": [
-    "elixir",
-    "eelixir",
-    "heex",
-    "elm",
-    "json",
-    "js",
-    "javascript",
-    "ex",
-    "heex",
-    "lua",
-    "go",
-    "sql",
-    "gleam",
-    "hcl",
-    "markdown",
-  ],
+  "extensions.updateCheck": "weekly",
+  "coc.preferences.formatOnSave": true,
   "workspace.rootPatterns": [
     ".git",
     ".hg",
@@ -47,11 +31,11 @@
   "suggest.minTriggerInputLength": 1,
   "suggest.noselect": false,
   "suggest.removeDuplicateItems": true,
+  "suggest.enableFloat": false,
   "snippets.ultisnips.directories": [
     "UltiSnips",
     "/Users/ricardogarciavega/.nvim/plugged/vim-snippets/UltiSnips"
   ],
-  "sql.lintOnSave": true,
   "tailwindCSS.headwind.runOnSave": true,
   "tailwindCSS.headwind.prependCustomClasses": true,
   "tailwindCSS.includeLanguages": {
@@ -77,6 +61,18 @@
         "elixirLS.autoInsertRequiredAlias": false,
       }
     },
+    "elmLS": {
+      "command": "elm-language-server",
+      "settings": {
+        "onlyUpdateDiagnosticsOnSave": true
+      },
+      "filetypes": [
+        "elm"
+      ],
+      "rootPatterns": [
+        "elm.json"
+      ]
+    },
     "terraformLS": {
       "command": "terraform-ls",
       "args": [
@@ -100,5 +96,5 @@
     }
   },
   "yaml.format.enable": true,
-  "snippets.ultisnips.pythonPrompt": false
+  "snippets.ultisnips.pythonPrompt": false,
 }

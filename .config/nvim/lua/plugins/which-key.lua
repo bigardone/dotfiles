@@ -26,7 +26,7 @@ return {
         { "<leader>cea", ":lua vim.lsp.buf.code_action()<CR>",    desc = "Code actions" },
         { "<leader>cef", ":!mix format<CR>",                      desc = "Format code" },
         { "<leader>cf",  ":CocCommand eslint.executeAutofix<CR>", desc = "Autofix" },
-        { "<leader>cr",  ":lua vim.lsp.buf.rename()<CR>",              desc = "Rename" },
+        { "<leader>cr",  ":Telescope coc references<CR>",         desc = "References" },
         { "<leader>cs",  ":Telescope coc document_symbols<CR>",   desc = "Symbols" },
         -- Find ---------------------------------------------------------------------------------
         { "<leader>f",   group = "Find" },
@@ -51,16 +51,20 @@ return {
         { "<leader>go",  ":GBrowse<CR>",                          desc = "Open" },
         { "<leader>gp",  ":Git push<CR>",                         desc = "Push" },
         { "<leader>gP",  ":Git push --force-with-lease<CR>",      desc = "Force push" },
-        { "<leader>gr", function()
-          local repo = vim.fn.input "Repository name / URI: "
-          if repo ~= "" then
-            require("git-dev").open(repo)
-          end
-        end, desc = "Open repository" },
+        {
+          "<leader>gr",
+          function()
+            local repo = vim.fn.input "Repository name / URI: "
+            if repo ~= "" then
+              require("git-dev").open(repo)
+            end
+          end,
+          desc = "Open repository"
+        },
         { "<leader>gs", ":FloatermNew lazygit<CR>",                              desc = "Status" },
         -- Harpoon ------------------------------------------------------------------------------
         { "<leader>h",  group = "Harpoon" },
-        { "<leader>ha", ":lua require('harpoon.mark').add_file()<CR>",                  desc = "Add mark" },
+        { "<leader>ha", ":lua require('harpoon.mark').add_file()<CR>",           desc = "Add mark" },
         { "<leader>hf", ":lua require('harpoon.ui').toggle_quick_menu()<CR>",    desc = "Find marks" },
         { "<leader>hn", ":lua require('harpoon.ui').nav_next()<CR>",             desc = "Next mark" },
         { "<leader>hp", ":lua require('harpoon.ui').nav_prev()<CR>",             desc = "Previous mark" },
@@ -96,21 +100,21 @@ return {
         -- Visual mode --------------------------------------------------------------------------
         mode = { "v" },
         -- Avante -------------------------------------------------------------------------------
-        { "<leader>a",  group = "Avante" },
-        { "<leader>aa", function() require('avante.api').ask() end,       desc = "Ask" },
-        { "<leader>ae", function() require('avante.api').edit() end,      desc = "Edit" },
+        { "<leader>a",   group = "Avante" },
+        { "<leader>aa",  function() require('avante.api').ask() end,       desc = "Ask" },
+        { "<leader>ae",  function() require('avante.api').edit() end,      desc = "Edit" },
         -- Code ---------------------------------------------------------------------------------
         { "<leader>c",   group = "Code" },
         { "<leader>ce",  group = "Elixir" },
-        { "<leader>cea", ":'<,'>lua vim.lsp.buf.code_action()<CR>",    desc = "Code actions" },
+        { "<leader>cea", ":'<,'>lua vim.lsp.buf.code_action()<CR>",        desc = "Code actions" },
         -- Git ----------------------------------------------------------------------------------
-        { "<leader>g",  group = "Git" },
-        { "<leader>go", ":'<,'>GBrowse<CR>",                              desc = "Open" },
+        { "<leader>g",   group = "Git" },
+        { "<leader>go",  ":'<,'>GBrowse<CR>",                              desc = "Open" },
         -- Find and replace ---------------------------------------------------------------------
-        { "<leader>r",  ":'<,'>lua require('spectre').open_visual()<CR>", desc = "Replace text" },
+        { "<leader>r",   ":'<,'>lua require('spectre').open_visual()<CR>", desc = "Replace text" },
         -- Text ---------------------------------------------------------------------------------
-        { "<leader>t",  group = "Text" },
-        { "<leader>ts", ":'<,'>sort<CR>",                                 desc = "Sort" },
+        { "<leader>t",   group = "Text" },
+        { "<leader>ts",  ":'<,'>sort<CR>",                                 desc = "Sort" },
       }
     }
     )
@@ -138,22 +142,22 @@ return {
       return ctx.mode == "V" or ctx.mode == "<C-V>"
     end,
     plugins = {
-      marks = true, -- shows a list of your marks on ' and `
+      marks = true,     -- shows a list of your marks on ' and `
       registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
       -- the presets plugin, adds help for a bunch of default keybindings in Neovim
       -- No actual key bindings are created
       spelling = {
-        enabled = false, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+        enabled = false,  -- enabling this will show WhichKey when pressing z= to select spelling suggestions
         suggestions = 20, -- how many suggestions should be shown in the list?
       },
       presets = {
-        operators = true, -- adds help for operators like d, y, ...
-        motions = true, -- adds help for motions
+        operators = true,    -- adds help for operators like d, y, ...
+        motions = true,      -- adds help for motions
         text_objects = true, -- help for text objects triggered after entering an operator
-        windows = true, -- default bindings on <c-w>
-        nav = false, -- misc bindings to work with windows
-        z = true, -- bindings for folds, spelling and others prefixed with z
-        g = false, -- bindings for prefixed with g
+        windows = true,      -- default bindings on <c-w>
+        nav = false,         -- misc bindings to work with windows
+        z = true,            -- bindings for folds, spelling and others prefixed with z
+        g = false,           -- bindings for prefixed with g
       },
     },
     win = {
@@ -176,12 +180,12 @@ return {
     },
     layout = {
       width = { min = 20 }, -- min and max width of the columns
-      spacing = 3, -- spacing between columns
-      align = "left", -- align columns left, center or right
+      spacing = 3,          -- spacing between columns
+      align = "left",       -- align columns left, center or right
     },
     keys = {
       scroll_down = "<c-d>", -- binding to scroll down inside the popup
-      scroll_up = "<c-u>", -- binding to scroll up inside the popup
+      scroll_up = "<c-u>",   -- binding to scroll up inside the popup
     },
     --- Mappings are sorted using configured sorters and natural sort of the keys
     --- Available sorters:

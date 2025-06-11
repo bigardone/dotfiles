@@ -2,7 +2,7 @@
 Application.put_env(:elixir, :ansi_enabled, true)
 
 IEx.configure(
-  auto_reload: true,
+  # auto_reload: true,
   history_size: 100,
   inspect: [
     limit: 5_000,
@@ -38,4 +38,4 @@ end
 
 import IExHelpers
 
-Mix.ensure_application!(:observer)
+# Mix.ensure_application!(:observer)

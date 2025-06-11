@@ -8,7 +8,7 @@ command = "/opt/homebrew/bin/zellij --layout compact"
 
 # Font
 font-family = "Hack Nerd Font"
-font-size = 13
+font-size = 14
 font-style-bold = false
 font-style-bold-italic = false
 font-style-italic = false
@@ -25,6 +25,7 @@ mouse-hide-while-typing = true
 shell-integration = zsh
 term = xterm-256color
 theme = "catppuccin-macchiato"
+title = ""
 window-decoration=false
 window-padding-y = 0
 window-padding-x = 0
