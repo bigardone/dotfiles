@@ -25,7 +25,7 @@
     "eelixir": "html",
     "heex": "html"
   },
-  "eslint.autoFixOnSave": false,
+  "eslint.autoFixOnSave": true,
   "suggest.languageSourcePriority": 100,
   "suggest.localityBonus": false,
   "suggest.minTriggerInputLength": 1,
@@ -44,6 +44,14 @@
     "heex": "html"
   },
   "languageserver": {
+    "elixirExpertLS": {
+      "command": "~/projects/os/expert/binaries/expert_darwin_arm64",
+      "filetypes": [],
+      "rootPatterns": [
+        "mix.exs"
+      ],
+      "settings": {}
+    },
     "elixirLS": {
       "command": "~/projects/os/elixir-ls/release/language_server.sh",
       "filetypes": [
@@ -97,4 +105,7 @@
   },
   "yaml.format.enable": true,
   "snippets.ultisnips.pythonPrompt": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
 }

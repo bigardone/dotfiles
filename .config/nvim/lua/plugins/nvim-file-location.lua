@@ -4,7 +4,7 @@ return {
   config = function()
     require('nvim-file-location').setup({
       keymap = "cp",
-      mode = "workdir", -- options: workdir | absolute
+      mode = "absolute", -- options: workdir | absolute
       add_line = true,
       add_column = false,
     })
