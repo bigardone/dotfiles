@@ -32,3 +32,4 @@ window-padding-x = 0
 window-padding-color = extend
 window-padding-balance = true
 window-save-state = always
+keybind = shift+enter=text:\x1b\r
