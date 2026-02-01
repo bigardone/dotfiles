@@ -129,7 +129,8 @@
     "meta@elixir": true,
     "frontend-design@claude-code-plugins": true,
     "claude-hud@claude-hud": true,
-    "claude-md-management@claude-plugins-official": true
+    "claude-md-management@claude-plugins-official": true,
+    "taches-cc-resources@taches-cc-resources": true
   },
   "alwaysThinkingEnabled": true
 }

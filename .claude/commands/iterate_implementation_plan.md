@@ -1,273 +1,124 @@
-# Iterate Implementation Plan
+---
+description: Update existing implementation plans based on user feedback with skeptical research and precise edits
+argument-hint: [plan-file-path] [feedback]
+allowed-tools: Task, Read, Edit, Write, Glob, Grep, AskUserQuestion
+model: opus
+---
 
-You are tasked with updating existing implementation plans based on user feedback. You should be skeptical, thorough, and ensure changes are grounded in actual codebase reality.
+<objective>
+Update an existing implementation plan at `$1` based on user feedback: $ARGUMENTS
 
-## Initial Response
+Be skeptical, thorough, and ensure changes are grounded in actual codebase reality. Make surgical edits — not wholesale rewrites.
+</objective>
 
-When this command is invoked:
+<context>
+Plan file: @$1
+Recent plans: !`ls -lt thoughts/shared/plans/ 2>/dev/null | head -5`
+</context>
 
-1. **Parse the input to identify**:
-   - Plan file path (relative like `thoughts/shared/plans/2025-10-16-feature.md` or absolute)
-   - Requested changes/feedback
+<initial-response>
+Handle input scenarios:
 
-2. **Handle different input scenarios**:
+**If NO plan file provided ($1 is empty)**:
+Ask: "Which plan would you like to update? Provide the path (e.g., `thoughts/shared/plans/2025-10-16-feature.md`). Tip: recent plans listed above."
+Wait for user input, then continue.
 
-   **If NO plan file provided**:
-   ```
-   I'll help you iterate on an existing implementation plan.
+**If plan file provided but NO feedback**:
+Read the plan fully, then ask: "What changes would you like to make?" with examples:
+- "Add a phase for migration handling"
+- "Update success criteria to include performance tests"
+- "Split Phase 2 into two separate phases"
+Wait for user input.
 
-   Which plan would you like to update? Please provide the path to the plan file (e.g., `thoughts/shared/plans/2025-10-16-feature.md`).
+**If BOTH plan file AND feedback provided**:
+Proceed immediately to the process steps.
+</initial-response>
 
-   Tip: You can list recent plans with `ls -lt thoughts/shared/plans/ | head`
-   ```
-   Wait for user input, then re-check for feedback.
+<process>
+## Step 1: Read and Understand Current Plan
 
-   **If plan file provided but NO feedback**:
-   ```
-   I've found the plan at [path]. What changes would you like to make?
+1. Read the existing plan file COMPLETELY (no limit/offset parameters)
+2. Understand current structure, phases, scope, and success criteria
+3. Parse what the user wants to add/modify/remove
+4. Determine if changes require codebase research
 
-   For example:
-   - "Add a phase for migration handling"
-   - "Update the success criteria to include performance tests"
-   - "Adjust the scope to exclude feature X"
-   - "Split Phase 2 into two separate phases"
-   ```
-   Wait for user input.
+## Step 2: Research If Needed
 
-   **If BOTH plan file AND feedback provided**:
-   - Proceed immediately to Step 1
-   - No preliminary questions needed
-
-## Process Steps
-
-### Step 1: Read and Understand Current Plan
-
-1. **Read the existing plan file COMPLETELY**:
-   - Use the Read tool WITHOUT limit/offset parameters
-   - Understand the current structure, phases, and scope
-   - Note the success criteria and implementation approach
-
-2. **Understand the requested changes**:
-   - Parse what the user wants to add/modify/remove
-   - Identify if changes require codebase research
-   - Determine scope of the update
-
-### Step 2: Research If Needed
-
-**Only spawn research tasks if the changes require new technical understanding.**
+Only spawn research tasks if changes require new technical understanding.
 
 **Research IS needed when:**
-- Adding new phases that reference unfamiliar code areas
-- Changing technical approach (e.g., "use a different pattern")
-- User requests involve code you haven't seen in the plan
-- Validating feasibility of a significant scope change
+- Adding new phases referencing unfamiliar code areas
+- Changing technical approach
+- User requests involve code not already covered in the plan
+- Validating feasibility of significant scope changes
 
 **Research is NOT needed when:**
-- Rewording or clarifying existing success criteria
+- Rewording or clarifying existing content
 - Splitting existing phases into smaller steps
-- Updating scope boundaries with already-known components
-- Fixing typos, formatting, or restructuring existing content
+- Updating scope with already-known components
+- Fixing formatting or restructuring existing content
 
-If the user's feedback requires understanding new code patterns or validating assumptions:
+When research is needed, spawn parallel sub-tasks:
 
-1. **Create a research todo list** using TodoWrite
+- `subagent_type: "codebase-locator"` — find relevant files
+- `subagent_type: "codebase-analyzer"` — understand implementation details
+- `subagent_type: "codebase-pattern-finder"` — find similar patterns
+- `subagent_type: "thoughts-locator"` — find related research/decisions
 
-2. **Spawn parallel sub-tasks for research**:
-   Use the Task tool with the appropriate `subagent_type` for each type of research:
+Be EXTREMELY specific in prompts: include full path context, exactly what to search for, which directories to focus on, and request file:line references.
 
-   **For code investigation:**
-   - `subagent_type: "codebase-locator"` - To find relevant files
-   - `subagent_type: "codebase-analyzer"` - To understand implementation details
-   - `subagent_type: "codebase-pattern-finder"` - To find similar patterns
+Wait for ALL sub-tasks to complete before proceeding.
 
-   **For historical context:**
-   - `subagent_type: "thoughts-locator"` - To find related research or decisions
-   - `subagent_type: "thoughts-analyzer"` - To extract insights from documents
+## Step 3: Present Understanding and Approach
 
-   **Be EXTREMELY specific about directories**:
-   - Include full path context in prompts
-
-3. **Read any new files identified by research**:
-   - Read them FULLY into the main context
-   - Cross-reference with the plan requirements
-
-4. **Wait for ALL sub-tasks to complete** before proceeding
-
-### Step 3: Present Understanding and Approach
-
-Before making changes, confirm your understanding:
-
-```
-Based on your feedback, I understand you want to:
-- [Change 1 with specific detail]
-- [Change 2 with specific detail]
-
-My research found:
-- [Relevant code pattern or constraint]
-- [Important discovery that affects the change]
-
-I plan to update the plan by:
-1. [Specific modification to make]
-2. [Another modification]
-
-Does this align with your intent?
-```
+Before making changes, confirm understanding with the user:
+- What you understand they want changed
+- What research found (if any)
+- What specific modifications you plan to make
 
 Get user confirmation before proceeding.
 
-### Step 4: Update the Plan
+## Step 4: Update the Plan
 
-1. **Make focused, precise edits** to the existing plan:
-   - Use the Edit tool for surgical changes (single sections, small updates)
-   - Use the Write tool for larger restructuring (reordering phases, major rewrites)
-   - Maintain the existing structure unless explicitly changing it
+1. **Make focused, precise edits**:
+   - Use Edit for surgical changes (single sections, small updates)
+   - Use Write for larger restructuring (reordering phases, major rewrites)
+   - Maintain existing structure unless explicitly changing it
    - Keep all file:line references accurate
    - Update success criteria if needed
 
 2. **Ensure consistency**:
-   - If adding a new phase, ensure it follows the existing pattern
-   - If modifying scope, update "What We're NOT Doing" section
-   - If changing approach, update "Implementation Approach" section
-   - Maintain the distinction between automated vs manual success criteria
+   - New phases follow existing patterns
+   - Scope changes update "What We're NOT Doing" section
+   - Approach changes update "Implementation Approach" section
+   - Maintain automated vs manual success criteria distinction
 
-3. **Preserve quality standards**:
-   - Include specific file paths and line numbers for new content
+3. **Preserve quality**:
+   - Include specific file paths and line numbers
    - Write measurable success criteria
    - Use `make` commands for automated verification
    - Keep language clear and actionable
 
-4. **Example edit** - Adding error handling to a phase:
+## Step 5: Present Changes
 
-   **Before:**
-   ```markdown
-   ### Phase 2: API Integration
-   1. Add endpoint for user data
-   2. Connect to external service
-   ```
+Show the user:
+- What file was updated
+- Specific changes made
+- Key improvements to the plan
+- Offer further adjustments
+</process>
 
-   **After:**
-   ```markdown
-   ### Phase 2: API Integration
-   1. Add endpoint for user data
-   2. Connect to external service
-   3. Add error handling for service timeouts (`lib/core/services/client.ex:45-60`)
-   4. Add retry logic with exponential backoff
-   ```
+<constraints>
+- **Be skeptical**: Don't blindly accept problematic requests. Question vague feedback. Verify technical feasibility. Point out conflicts with existing phases.
+- **Be surgical**: Precise edits, not wholesale rewrites. Preserve good content. Only research what's necessary. Don't over-engineer.
+- **Be interactive**: Confirm understanding before changes. Show planned modifications. Allow course corrections. Communicate during research.
+- **No open questions**: If a change raises questions, ASK immediately. Do NOT update the plan with unresolved questions. Every change must be complete and actionable.
+- **Handle problems**: If an update breaks coherence, revert and discuss. Don't compound errors. When unsure, show what went wrong and ask.
+</constraints>
 
-### Step 5: Sync and Review
+<success_criteria>
+When updating success criteria in plans, maintain two categories:
 
-1. **Present the changes made**:
-   ```
-   I've updated the plan at `thoughts/shared/plans/[filename].md`
-
-   Changes made:
-   - [Specific change 1]
-   - [Specific change 2]
-
-   The updated plan now:
-   - [Key improvement]
-   - [Another improvement]
-
-   Would you like any further adjustments?
-   ```
-
-2. **Be ready to iterate further** based on feedback
-
-## Important Guidelines
-
-1. **Be Skeptical**:
-   - Don't blindly accept change requests that seem problematic
-   - Question vague feedback - ask for clarification
-   - Verify technical feasibility with code research
-   - Point out potential conflicts with existing plan phases
-
-2. **Be Surgical**:
-   - Make precise edits, not wholesale rewrites
-   - Preserve good content that doesn't need changing
-   - Only research what's necessary for the specific changes
-   - Don't over-engineer the updates
-
-3. **Be Thorough**:
-   - Read the entire existing plan before making changes
-   - Research code patterns if changes require new technical understanding
-   - Ensure updated sections maintain quality standards
-   - Verify success criteria are still measurable
-
-4. **Be Interactive**:
-   - Confirm understanding before making changes
-   - Show what you plan to change before doing it
-   - Allow course corrections
-   - Don't disappear into research without communicating
-
-5. **Track Progress**:
-   - Use TodoWrite to track update tasks if complex
-   - Update todos as you complete research
-   - Mark tasks complete when done
-
-6. **No Open Questions**:
-   - If the requested change raises questions, ASK
-   - Research or get clarification immediately
-   - Do NOT update the plan with unresolved questions
-   - Every change must be complete and actionable
-
-7. **Handle Problems**:
-   - If an update breaks plan coherence, revert and discuss with the user
-   - Don't compound errors with more errors - stop and reassess
-   - When unsure, show the user what went wrong and ask how to proceed
-
-## Success Criteria Guidelines
-
-When updating success criteria, always maintain the two-category structure:
-
-1. **Automated Verification** (can be run by execution agents):
-   - Commands that can be run: `make test`, `npm run lint`, etc.
-   - Specific files that should exist
-   - Code compilation/type checking
-
-2. **Manual Verification** (requires human testing):
-   - UI/UX functionality
-   - Performance under real conditions
-   - Edge cases that are hard to automate
-   - User acceptance criteria
-
-## Sub-task Spawning Best Practices
-
-When spawning research sub-tasks:
-
-1. **Only spawn if truly needed** - don't research for simple changes
-2. **Spawn multiple tasks in parallel** for efficiency
-3. **Each task should be focused** on a specific area
-4. **Provide detailed instructions** including:
-   - Exactly what to search for
-   - Which directories to focus on
-   - What information to extract
-   - Expected output format
-5. **Request specific file:line references** in responses
-6. **Wait for all tasks to complete** before synthesizing
-7. **Verify sub-task results** - if something seems off, spawn follow-up tasks
-
-## Example Interaction Flows
-
-**Scenario 1: User provides everything upfront**
-```
-User: /iterate_plan thoughts/shared/plans/2025-10-16-feature.md - add phase for error handling
-Assistant: [Reads plan, researches error handling patterns, updates plan]
-```
-
-**Scenario 2: User provides just plan file**
-```
-User: /iterate_plan thoughts/shared/plans/2025-10-16-feature.md
-Assistant: I've found the plan. What changes would you like to make?
-User: Split Phase 2 into two phases - one for backend, one for frontend
-Assistant: [Proceeds with update]
-```
-
-**Scenario 3: User provides no arguments**
-```
-User: /iterate_plan
-Assistant: Which plan would you like to update? Please provide the path...
-User: thoughts/shared/plans/2025-10-16-feature.md
-Assistant: I've found the plan. What changes would you like to make?
-User: Add more specific success criteria
-Assistant: [Proceeds with update]
-```
+1. **Automated Verification** (runnable by execution agents): commands like `make test`, file existence checks, compilation/type checking
+2. **Manual Verification** (requires human): UI/UX, real-world performance, hard-to-automate edge cases, user acceptance
+</success_criteria>

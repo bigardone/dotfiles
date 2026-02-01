@@ -1,4 +1,15 @@
+---
+description: Create detailed implementation plans through interactive research and collaborative refinement
+allowed-tools: Task, Read, Grep, Glob, Write, Edit, TodoWrite, Bash(git:*)
+argument-hint: "[optional: ticket file path or 'think deeply about <file>']"
+model: opus
+---
+
 # Implementation Plan
+
+## Dynamic Context
+- Current branch: `!git branch --show-current`
+- Git status: `!git status --short`
 
 You are tasked with creating detailed implementation plans through an interactive, iterative process. You should be skeptical, thorough, and work collaboratively with the user to produce high-quality technical specifications.
 
@@ -6,12 +17,11 @@ You are tasked with creating detailed implementation plans through an interactiv
 
 When this command is invoked:
 
-1. **Check if parameters were provided**:
-   - If a file path or ticket reference was provided as a parameter, skip the default message
-   - Immediately read any provided files FULLY
-   - Begin the research process
+1. **Check if arguments were provided**:
+   - If `$ARGUMENTS` is provided, immediately read the file/ticket at `$ARGUMENTS` and begin the research process
+   - If `$ARGUMENTS` starts with "think deeply about", read the referenced file and perform deeper analysis
 
-2. **If no parameters provided**, respond with:
+2. **If no arguments provided**, respond with:
 ```
 I'll help you create a detailed implementation plan. Let me start by understanding what we're building.
 
@@ -22,8 +32,8 @@ Please provide:
 
 I'll analyze this information and work with you to create a comprehensive plan.
 
-Tip: You can also invoke this command with a ticket file directly: `/create_plan thoughts/allison/tickets/eng_1234.md`
-For deeper analysis, try: `/create_plan think deeply about thoughts/allison/tickets/eng_1234.md`
+Tip: You can also invoke this command with a ticket file directly: `/create_implementation_plan thoughts/allison/tickets/eng_1234.md`
+For deeper analysis, try: `/create_implementation_plan think deeply about thoughts/allison/tickets/eng_1234.md`
 ```
 
 Then wait for the user's input.
@@ -162,7 +172,7 @@ Once aligned on approach:
 
 After structure approval:
 
-1. **Write the plan** to `thoughts/shared/plans/{YYYY-MM-DD}-{descriptive_name}.md` (e.g., `2025-01-15-user-auth-refactor.md`)
+1. **Write the plan** to `thoughts/shared/plans/{YYYY-MM-DD}-{descriptive_name}.md` (date only, e.g., `2025-01-15-user-auth-refactor.md`)
 2. **Use this template structure**:
 
 ```markdown
@@ -345,6 +355,8 @@ After structure approval:
    - Edge cases that are hard to automate
    - User acceptance criteria
 
+   **Note**: Execution agents can only verify automated criteria. Manual criteria require human testing after implementation.
+
 **Format example:**
 ```markdown
 ### Success Criteria:
@@ -406,20 +418,16 @@ When spawning research sub-tasks:
    - Don't accept results that seem incorrect
 
 Example of spawning multiple tasks:
-```python
-# Spawn these tasks concurrently:
-tasks = [
-    Task("Research database schema", db_research_prompt),
-    Task("Find API patterns", api_research_prompt),
-    Task("Investigate UI components", ui_research_prompt),
-    Task("Check test patterns", test_research_prompt)
-]
-```
+   Spawn these concurrently using multiple Task tool calls in a single message:
+   - Task 1: "Research database schema" with codebase-analyzer agent
+   - Task 2: "Find API patterns" with codebase-pattern-finder agent
+   - Task 3: "Investigate UI components" with codebase-locator agent
+   - Task 4: "Check test patterns" with codebase-pattern-finder agent
 
 ## Example Interaction Flow
 
 ```
-User: /implementation_plan
+User: /create_implementation_plan
 Assistant: I'll help you create a detailed implementation plan...
 
 User: We need to add parent-child tracking for Claude sub-tasks. See thoughts/allison/tickets/eng_1478.md

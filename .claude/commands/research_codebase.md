@@ -1,14 +1,29 @@
+---
+description: Research codebase with parallel sub-agents and generate comprehensive report
+allowed-tools: Task, Read, Grep, Glob, Write, Edit, Bash(git:*), Bash(gh repo view*)
+argument-hint: "[research topic or question]"
+model: opus
+---
+
 # Research Codebase
 
 You are tasked with conducting comprehensive research across the codebase to answer user questions by spawning parallel sub-agents and synthesizing their findings.
 
+## Dynamic Context
+
+- Current branch: `!git branch --show-current`
+- Current commit: `!git log -1 --format="%H"`
+- Repository: `!gh repo view --json owner,name --jq '"\(.owner.login)/\(.name)"'`
+
 ## Initial Setup:
 
-When this command is invoked, respond with:
+When this command is invoked:
+
+1. If `$ARGUMENTS` is provided, use it as the research topic and proceed directly to the research steps below
+2. Otherwise, respond with:
 ```
 I'm ready to research the codebase. Please provide your research question or area of interest, and I'll analyze it thoroughly by exploring relevant components and connections.
 ```
-
 Then wait for the user's research query.
 
 ## Steps to follow after receiving the research query:
@@ -159,6 +174,11 @@ Then wait for the user's research query.
     - `thoughts/searchable/global/shared/templates.md` → `thoughts/global/shared/templates.md`
   - NEVER change allison/ to shared/ or vice versa - preserve the exact directory structure
   - This ensures paths are correct for editing and navigation
+- **Error handling**:
+  - If a sub-agent task fails or returns empty results, note the gap and continue with available findings
+  - If git information is unavailable, use "unknown" for commit/branch fields and note it
+  - If the thoughts/ directory doesn't exist, skip historical context and note its absence
+  - If GitHub permalinks can't be generated (no remote, not pushed), use local file paths instead
 - **Frontmatter consistency**:
   - Always include frontmatter at the beginning of research documents
   - Keep frontmatter fields consistent across all research documents
